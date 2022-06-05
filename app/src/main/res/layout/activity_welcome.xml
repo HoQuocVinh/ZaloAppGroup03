@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.WelcomeActivity">
+
+    <!--    <androidx.cardview.widget.CardView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+
+<!--            <com.denzcoskun.imageslider.ImageSlider-->
+<!--                android:id="@+id/img_slider"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="450dp"-->
+<!--                app:iss_auto_cycle="true"-->
+<!--                app:iss_delay="1000"-->
+<!--                app:iss_period="1000"-->
+<!--                app:iss_title_background="@color/transparent" />-->
+
+<!--        </LinearLayout>-->
+<!--    </androidx.cardview.widget.CardView>-->
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_mountain" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@drawable/img_chery_blossom1"/>
+    <ImageView
+        android:layout_width="250dp"
+        android:scaleType="fitXY"
+        android:layout_height="250dp"
+        android:src="@drawable/img_cherry_blossom2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="center"
+        android:textSize="70dp"
+        android:textStyle="bold"
+        android:textColor="@color/blue"
+        app:layout_constraintVertical_bias="0.3"
+        android:text="Zalo"/>
+    <LinearLayout
+
+        android:layout_width="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.8"
+        android:orientation="vertical"
+        app:layout_constraintWidth_percent="0.6"
+        android:layout_height="wrap_content">
+
+
+        <Button
+            android:onClick="login"
+            style = "@style/button"
+            android:backgroundTint="@color/red_53"
+            android:text="@string/login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:onClick="register"
+            style="@style/button"
+            android:text="Register"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/gray_ddd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
