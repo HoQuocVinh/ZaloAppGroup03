@@ -49,8 +49,8 @@ public class VerifyOTPActivity extends AppCompatActivity {
         showKeyboard();
 
         String phone = getIntent().getStringExtra("sendPhoneToVerify");
-        FirebaseAuth.getInstance().getFirebaseAuthSettings()
-                .setAppVerificationDisabledForTesting(true);
+//        FirebaseAuth.getInstance().getFirebaseAuthSettings()
+//                .setAppVerificationDisabledForTesting(true);
         sendVerificationCodeToUser(phone);
 //        OTP();
     }

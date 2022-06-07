@@ -14,12 +14,15 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:visibility="gone"
             android:id="@+id/img_view"
             android:layout_width="300dp"
             android:layout_height="200dp"
             android:backgroundTint="@color/white"
             android:scaleType="centerCrop"
+            android:layout_marginEnd="15dp"
             android:src="@drawable/img_avt" />
 
 
@@ -28,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="15dp"
             android:background="@drawable/send_drawable"
             android:gravity="left"
             android:padding="10dp"

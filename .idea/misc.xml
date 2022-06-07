@@ -9,6 +9,7 @@
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/custom_button_top.xml" value="0.225" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/custom_button_welcome.xml" value="0.206" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/custom_edit_text.xml" value="0.2" />
+        <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/custom_image.xml" value="0.225" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/custom_search_view.xml" value="0.206" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/foreground_design.xml" value="0.319" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/ic_arrow_right.xml" value="0.225" />
@@ -27,9 +28,9 @@
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/receive_drawble.xml" value="0.225" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/send_drawable.xml" value="0.2" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/activity_chat.xml" value="0.264" />
-        <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/activity_login.xml" value="0.35052083333333334" />
+        <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/activity_main.xml" value="0.2" />
-        <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/activity_phone_number.xml" value="0.21822916666666667" />
+        <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/activity_phone_number.xml" value="0.536" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/activity_phone_numer.xml" value="0.16" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/activity_register.xml" value="0.35052083333333334" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/activity_send_otp.xml" value="0.264" />
@@ -38,6 +39,7 @@
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/activity_welcome.xml" value="0.264" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/content_main.xml" value="0.21822916666666667" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/content_register.xml" value="0.1734375" />
+        <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/custom_image.xml" value="0.21822916666666667" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/fragment_enter_name.xml" value="0.264" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/fragment_enter_name_register.xml" value="0.35052083333333334" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/fragment_enter_phone.xml" value="0.264" />
@@ -51,7 +53,7 @@
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/fragment_second.xml" value="0.21822916666666667" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/fragment_send_o_t_p.xml" value="0.2" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/fragment_veriify_o_t_p.xml" value="0.2" />
-        <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/item_receive.xml" value="0.4" />
+        <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/item_receive.xml" value="0.2" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/item_send.xml" value="0.21822916666666667" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/item_sent.xml" value="0.21822916666666667" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/row_converstation.xml" value="0.4" />

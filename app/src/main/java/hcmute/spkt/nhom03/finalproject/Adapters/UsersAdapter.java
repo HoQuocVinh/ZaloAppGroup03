@@ -35,6 +35,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
         this.users = users;
     }
 
+
     @NonNull
     @Override
     public UsersViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -69,19 +70,23 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
 
                     }
                 });
+        /*Gán name vào TextView trong row_converstation*/
         holder.binding.txtUserName.setText(user.getName());
+
+        /*Gán image vào ImageView trong row_converstation*/
         Glide.with(context).load(user.getProfileImage())
                 .placeholder(R.drawable.img_avt)
                 .into(holder.binding.imgProfile);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, ChatActivity.class);
-                intent.putExtra("name", user.getName());
-                intent.putExtra("uid", user.getUid());
-                context.startActivity(intent);
-            }
+        /*Tạo sự kiện click cko mỗi item khi click sẽ chuyển vào khung chat để gửi tin nhắn,
+        * đồng thời gửi name, image, uid để ChatActivity sử dụng*/
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(context, ChatActivity.class);
+            intent.putExtra("name", user.getName());
+            intent.putExtra("image", user.getProfileImage());
+            intent.putExtra("uid", user.getUid());
+            intent.putExtra("token", user.getToken());
+            context.startActivity(intent);
         });
     }
 

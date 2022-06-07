@@ -57,12 +57,12 @@
 
                 <TextView
                     android:id="@+id/text_show_hide_pass"
-                    android:onClick="showHidePass"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignEnd="@+id/edt_password"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="10dp"
+                    android:onClick="showHidePass"
                     android:text="SHOW"
                     android:textColor="@color/gray_ccc"
                     android:textSize="13dp"

@@ -60,12 +60,71 @@
 
                     <requestFocus />
                 </EditText>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
+
+                <EditText
+                    android:paddingEnd="60dp"
+                    android:id="@+id/edt_password1"
+                    style="@style/editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter password"
+                    android:inputType="textPassword" />
+
+                <TextView
+                    android:id="@+id/txt_show_hide1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|right"
+                    android:layout_marginRight="10dp"
+                    android:onClick="test"
+                    android:text="SHOW"
+                    android:textColor="@color/gray_ccc"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
             </FrameLayout>
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
+
+                <EditText
+                    android:paddingEnd="60dp"
+                    android:id="@+id/edt_password2"
+                    style="@style/editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Comfirm password"
+                    android:inputType="textPassword">
+
+                </EditText>
+
+                <TextView
+                    android:id="@+id/txt_show_hide2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|right"
+                    android:layout_marginRight="10dp"
+                    android:text="SHOW"
+                    android:textColor="@color/gray_ccc"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/custom_button_in_register"
+                android:backgroundTint="@color/neon_blue">
 
                 <Button
                     android:id="@+id/btn_Continue"
@@ -83,6 +142,8 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center"
+                    android:background="@color/neon_blue"
+                    android:indeterminateTint="@color/white"
                     android:visibility="gone" />
             </FrameLayout>
         </LinearLayout>

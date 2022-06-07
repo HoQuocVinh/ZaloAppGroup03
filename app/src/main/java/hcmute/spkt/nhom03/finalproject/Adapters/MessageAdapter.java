@@ -1,6 +1,7 @@
 package hcmute.spkt.nhom03.finalproject.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +13,14 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import hcmute.spkt.nhom03.finalproject.Models.Message;
 import hcmute.spkt.nhom03.finalproject.Models.User;
 import hcmute.spkt.nhom03.finalproject.R;
 import hcmute.spkt.nhom03.finalproject.databinding.ItemReceiveBinding;
 import hcmute.spkt.nhom03.finalproject.databinding.ItemSentBinding;
+
 
 public class MessageAdapter extends RecyclerView.Adapter {
     Context context;
@@ -47,7 +50,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemViewType(int position) {
         Message message = messages.get(position);
-        if (FirebaseAuth.getInstance().getUid().equals(message.getSenderId()))
+        if (Objects.requireNonNull(FirebaseAuth.getInstance().getUid()).equals(message.getSenderId()))
             return ITEM_SENT;
         else return ITEM_RECEIVE;
     }
@@ -71,6 +74,11 @@ public class MessageAdapter extends RecyclerView.Adapter {
         } else {
             ReceiverViewHolder viewHolder = (ReceiverViewHolder) holder;
             viewHolder.binding.message.setText(message.getMessage());
+            Intent intent = new Intent();
+            String profile = intent.getStringExtra("image");
+            Glide.with(context).load(profile)
+                    .placeholder(R.drawable.img_avt)
+                    .into(viewHolder.binding.imgAvt);
         }
     }
 

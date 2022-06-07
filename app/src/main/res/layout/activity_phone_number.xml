@@ -60,13 +60,17 @@
                     android:phoneNumber="true" />
 
                 <ImageButton
+                    android:layout_marginTop="5dp"
                     android:id="@+id/img_ButtonClose"
                     style="@style/btnClose"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|right"
                     android:onClick="clearText" />
             </FrameLayout>
 
             <Button
+                android:layout_marginTop="10dp"
                 android:id="@+id/btn_Continue"
                 style="@style/btnInRegister"
                 android:layout_width="match_parent"
