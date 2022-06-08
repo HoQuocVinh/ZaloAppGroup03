@@ -3,6 +3,7 @@ package hcmute.spkt.nhom03.finalproject.Activities;
 import android.annotation.SuppressLint;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth auth;
     ArrayList<User> users;
     UsersAdapter usersAdapter;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         /*Gọi hàm changeColorActionBar() đã được khởi tạo bên dưới đ*/
         changeColorActionBar();
+//        sendData();
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         FirebaseMessaging.getInstance().getToken().addOnSuccessListener(token -> {
@@ -75,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
                                 users.add(user);
                         }
                         usersAdapter.notifyDataSetChanged();
-
                     }
 
                     @Override

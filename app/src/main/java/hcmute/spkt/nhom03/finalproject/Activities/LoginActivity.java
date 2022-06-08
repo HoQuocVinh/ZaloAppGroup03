@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     ArrayList<User> users;
     FirebaseDatabase database;
     FirebaseAuth auth;
+    DatabaseReference reference;
     UsersAdapter usersAdapter;
 
 
@@ -44,15 +45,21 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        database = FirebaseDatabase.getInstance();
-        users = new ArrayList<>();
-        usersAdapter = new UsersAdapter(this, users);
+        mapping();
         binding.edtPhone.requestFocus(); /*Focus vào edtPhone*/
         showKeyboard(); /*Show bàng phím lên*/
         changeColorActionBar(); /*Thực hiện thay đổi màu của action bar*/
         customActionBar();  /*Tinh chỉnh lại action bar*/
         binding.edtPhone.addTextChangedListener(textWatcher);   /*Add sự kiện nghe khi thay đổi văn bản cho edtPhone*/
         binding.edtPassword.addTextChangedListener(textWatcher);    /*Add sự kiện nghe khi thay đổi văn bản cho edtPhone*/
+    }
+
+    private void mapping() {
+        database = FirebaseDatabase.getInstance();
+        users = new ArrayList<>();
+        usersAdapter = new UsersAdapter(this, users);
+        database =FirebaseDatabase.getInstance();
+        reference = database.getReference("users");
     }
 
 
@@ -62,72 +69,41 @@ public class LoginActivity extends AppCompatActivity {
         /*Khởi tạo biến password kiểu string để nhận giá trị của edtPhone (edtPassword là EditText mà người dùng nhập kí tự vào)*/
         String password = binding.edtPassword.getText().toString().trim();
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference("users");
-
-        /* Hiện progress bar khi click vào button Setup Profile*/
-        binding.progressBar.setVisibility(View.VISIBLE);
-
-        /* Ẩn button Login đi*/
-        binding.btnLogin.setVisibility(View.INVISIBLE);
+        binding.progressBar.setVisibility(View.VISIBLE); /* Hiện progress bar khi click vào button Setup Profile*/
+        binding.btnLogin.setVisibility(View.INVISIBLE); /* Ẩn button Login đi*/
 
         reference.addValueEventListener(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                /*Lây đữ liệu từ realtime database*/
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
-                    /*Sử dụng model User để nhận dữ liệu từ realtime database*/
-                    User user = dataSnapshot.getValue(User.class);
-                    /*Add dữ liệu nhận từ realtime database vào user (ArrayList)*/
-                    users.add(user);
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {  /*Lây đữ liệu từ realtime database*/
+                    User user = dataSnapshot.getValue(User.class);  /*Sử dụng model User để nhận dữ liệu từ realtime database*/
+                    users.add(user);    /*Add dữ liệu nhận từ realtime database vào user (ArrayList)*/
                 }
-                /*Commit lại sự thay đổi*/
-                usersAdapter.notifyDataSetChanged();
-                /*Chạy vòng lăp for trên ArrayList*/
-                for (int i = 0; i < users.size(); i++) {
-                    /*Tạo một biến phoneAuth kiểu string để nhận giá trị phoneNumber
-                     *Trong khi chạy vòng lặp for thì users sẽ get(position) đồng thời getPhonNunber() để lấy ra giá trị phoneNumber ở position đó
-                     */
-                    String phoneAuth = users.get(i).getPhoneNumber();
 
-                    /*Tạo một biến  passwordAuth kiểu string để nhận giá trị password
-                     * Trong khi chạy vòng lặp for thì users sẽ get(position) đồng thời getPassword() để lấy ra giá trị phoneNumber ở position đó
-                     */
-                    String passwordAuth = users.get(i).getPassword();
+                usersAdapter.notifyDataSetChanged();    /*Commit lại sự thay đổi*/
+                for (User user : users) {   /*Chạy vòng lăp for trên ArrayList*/
+                    String phoneAuth = user.getPhoneNumber();   /*Tạo một biến phoneAuth kiểu string để nhận giá trị phoneNumber*/
+                    String passwordAuth = user.getPassword();   /*Tạo một biến passwordAuth kiểu string để nhận giá trị password*/
+                    String nameAuth = user.getName();
 
-                    /*Kiểm tra xem
-                     * PhoneNumber được nhập (phone) bằng số điện thoai được lấy ra từ ArrayList không (phoneAuth)
-                     * Password được nhập vào (password) bằng password được lấy ra từ ArrrayList không (passwordAuth)
-                     */
                     if (phone.equals(phoneAuth) && password.equals(passwordAuth)) {
-
-                        /* Ẩn progress bar đi để show lại button login*/
-                        binding.progressBar.setVisibility(View.INVISIBLE);
-
-                        /* Show button login */
-                        binding.btnLogin.setVisibility(View.VISIBLE);
-
-                        binding.error.setVisibility(View.GONE);
+                        binding.progressBar.setVisibility(View.INVISIBLE);  /* Ẩn progress bar đi để show lại button login*/
+                        binding.btnLogin.setVisibility(View.VISIBLE);   /* Show button login */
 //                        Toast.makeText(LoginActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();
                         /*Gọi hàm startActivity() để chuyển từ trang hiện tại (login) vào trong chủ (main)*/
+                        binding.error.setVisibility(View.GONE); /*Ẩn thông báo error đi*/
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
-
                         /*Gọi hàm closeKeyboard() để ẩn bàng phím đi trong quá trình chuyển từ LoginActivity sang MainActivity*/
                         closeKeyboard();
                         finish();
+                        break;
                     } else {
-                        /* Ẩn progress bar đi để show lại button login*/
-                        binding.progressBar.setVisibility(View.INVISIBLE);
-
-                        /* Show button login */
-                        binding.btnLogin.setVisibility(View.VISIBLE);
-
-                        /*Show thông báo error bằng TextView đã được design trong file activity_login.xml*/
-                        binding.error.setVisibility(View.VISIBLE);
+                        binding.progressBar.setVisibility(View.INVISIBLE);  /* Ẩn progress bar đi để show lại button login*/
+                        binding.btnLogin.setVisibility(View.VISIBLE);   /* Show button login */
+                        binding.error.setVisibility(View.VISIBLE);  /*Show thông báo error bằng TextView đã được design trong file activity_login.xml*/
                     }
-
                 }
             }
 

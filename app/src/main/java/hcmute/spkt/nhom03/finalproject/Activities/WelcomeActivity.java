@@ -20,9 +20,9 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         binding = ActivityWelcomeBinding.inflate(getLayoutInflater());
         FirebaseAuth auth= FirebaseAuth.getInstance();
-        if(auth.getCurrentUser()!=null){
-            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
-        }
+//        if(auth.getCurrentUser()!=null){
+//            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+//        }
         setContentView(binding.getRoot());
         mapping();
         closeKeyboard();

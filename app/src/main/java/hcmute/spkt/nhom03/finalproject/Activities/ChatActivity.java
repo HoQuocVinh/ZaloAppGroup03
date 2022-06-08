@@ -57,10 +57,7 @@ public class ChatActivity extends AppCompatActivity {
     ProgressDialog dialog;
     String senderUid;
 
-    String name;
-    String token;
-    String profile;
-    String uid;
+    String name, token, profile, uid;
 
 
     @Override
@@ -78,6 +75,7 @@ public class ChatActivity extends AppCompatActivity {
 
         binding.edtChat.addTextChangedListener(textWatcher);
         /*Tạo các biến kiểu String để nhận các giá trị được gửi từ UsersAdapter*/
+//        name = getIntent().getStringExtra("name");
         name = getIntent().getStringExtra("name");
         profile = getIntent().getStringExtra("image");
         uid = getIntent().getStringExtra("uid");

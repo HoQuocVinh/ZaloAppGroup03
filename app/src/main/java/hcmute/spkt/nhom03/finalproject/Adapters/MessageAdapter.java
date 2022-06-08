@@ -55,6 +55,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
         else return ITEM_RECEIVE;
     }
 
+    /*Hiển thị dữ liệu ở vị trí được chỉ định*/
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Message message = messages.get(position);
@@ -73,6 +74,11 @@ public class MessageAdapter extends RecyclerView.Adapter {
 //                    .into(viewHolder.binding.imgView);
         } else {
             ReceiverViewHolder viewHolder = (ReceiverViewHolder) holder;
+            if (message.getMessage().equals("photo")) {
+                viewHolder.binding.imgView.setVisibility(View.VISIBLE);
+                viewHolder.binding.message.setVisibility(View.GONE);
+                Glide.with(context).load(message.getImageUrl()).into(viewHolder.binding.imgView);
+            }
             viewHolder.binding.message.setText(message.getMessage());
             Intent intent = new Intent();
             String profile = intent.getStringExtra("image");
