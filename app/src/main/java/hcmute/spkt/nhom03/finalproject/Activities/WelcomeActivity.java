@@ -8,6 +8,8 @@ import android.view.inputmethod.InputMethodManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import hcmute.spkt.nhom03.finalproject.R;
 import hcmute.spkt.nhom03.finalproject.databinding.ActivityWelcomeBinding;
 public class WelcomeActivity extends AppCompatActivity {
@@ -17,6 +19,10 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         binding = ActivityWelcomeBinding.inflate(getLayoutInflater());
+        FirebaseAuth auth= FirebaseAuth.getInstance();
+        if(auth.getCurrentUser()!=null){
+            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+        }
         setContentView(binding.getRoot());
         mapping();
         closeKeyboard();

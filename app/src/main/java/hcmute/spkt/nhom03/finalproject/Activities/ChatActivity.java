@@ -57,7 +57,10 @@ public class ChatActivity extends AppCompatActivity {
     ProgressDialog dialog;
     String senderUid;
 
-    String name, token;
+    String name;
+    String token;
+    String profile;
+    String uid;
 
 
     @Override
@@ -75,10 +78,10 @@ public class ChatActivity extends AppCompatActivity {
 
         binding.edtChat.addTextChangedListener(textWatcher);
         /*Tạo các biến kiểu String để nhận các giá trị được gửi từ UsersAdapter*/
-        String name = getIntent().getStringExtra("name");
-        String profile = getIntent().getStringExtra("image");
-        String uid = getIntent().getStringExtra("uid");
-        String token = getIntent().getStringExtra("token");
+        name = getIntent().getStringExtra("name");
+        profile = getIntent().getStringExtra("image");
+        uid = getIntent().getStringExtra("uid");
+        token = getIntent().getStringExtra("token");
 //        Toast.makeText(this, token, Toast.LENGTH_SHORT).show();
 
         /*Tạo action bar, action bar ở đây đã được tạo trong activity_chat.xml*/
@@ -253,7 +256,7 @@ public class ChatActivity extends AppCompatActivity {
             notificationData.put("notification", data);
             notificationData.put("to", token);
 
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, notificationData,
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, notificationData,
                     response -> Toast.makeText(ChatActivity.this, "success", Toast.LENGTH_SHORT).show(),
                     error -> Toast.makeText(ChatActivity.this, error.toString(), Toast.LENGTH_SHORT).show()) {
                 @Override

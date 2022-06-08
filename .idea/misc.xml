@@ -17,6 +17,7 @@
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.225" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/ic_baseline_arrow_forward_24.xml" value="0.225" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/ic_contact.xml" value="0.206" />
+        <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/ic_error.xml" value="0.225" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/ic_hide_pass.xml" value="0.319" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/ic_lock.xml" value="0.319" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/ic_phone.xml" value="0.319" />
@@ -28,7 +29,7 @@
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/receive_drawble.xml" value="0.225" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/send_drawable.xml" value="0.2" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/activity_chat.xml" value="0.264" />
-        <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/activity_phone_number.xml" value="0.536" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/activity_phone_numer.xml" value="0.16" />

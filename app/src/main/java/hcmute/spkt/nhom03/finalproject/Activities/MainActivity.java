@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         FirebaseMessaging.getInstance().getToken().addOnSuccessListener(token -> {
-            HashMap <String, Object> map = new HashMap<>();
+            HashMap<String, Object> map = new HashMap<>();
             map.put("token", token);
             database.getReference()
                     .child("users")
@@ -58,16 +58,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         users = new ArrayList<>();
-        usersAdapter = new
-
-                UsersAdapter(this, users);
+        usersAdapter = new UsersAdapter(this, users);
 //        binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(usersAdapter);
 
         database.getReference().
-
                 child("users").
-
                 addValueEventListener(new ValueEventListener() {
                     @SuppressLint("NotifyDataSetChanged")
                     @Override
@@ -79,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                                 users.add(user);
                         }
                         usersAdapter.notifyDataSetChanged();
+
                     }
 
                     @Override

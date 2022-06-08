@@ -2,15 +2,17 @@ package hcmute.spkt.nhom03.finalproject.Models;
 
 public class User {
     private String uid, name, phoneNumber, profileImage, token, password;
-    public User(){
+
+    public User() {
 
     }
-    public User(String uid, String name, String phoneNumber, String profileImage, String password)  {
+
+    public User(String uid, String name, String phoneNumber, String profileImage, String password) {
         this.uid = uid;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.profileImage = profileImage;
-        this.password =password;
+        this.password = password;
     }
 
     public String getUid() {

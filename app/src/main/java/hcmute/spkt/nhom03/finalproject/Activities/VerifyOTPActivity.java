@@ -105,7 +105,7 @@ public class VerifyOTPActivity extends AppCompatActivity {
         public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
             super.onCodeSent(s, forceResendingToken);
             dialog.dismiss();
-            verificationId = s;
+                verificationId = s;
         }
 
         @Override

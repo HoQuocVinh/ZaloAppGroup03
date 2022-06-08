@@ -8,6 +8,7 @@
     android:orientation="vertical"
     tools:context=".Activities.SetupProfileActivity">
 
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_ViewProfile"
         android:layout_width="120dp"
@@ -68,13 +69,13 @@
                 android:layout_marginTop="15dp">
 
                 <EditText
-                    android:paddingEnd="60dp"
                     android:id="@+id/edt_password1"
                     style="@style/editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Enter password"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:paddingEnd="60dp" />
 
                 <TextView
                     android:id="@+id/txt_show_hide1"
@@ -96,13 +97,13 @@
                 android:layout_marginTop="15dp">
 
                 <EditText
-                    android:paddingEnd="60dp"
                     android:id="@+id/edt_password2"
                     style="@style/editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Comfirm password"
-                    android:inputType="textPassword">
+                    android:inputType="textPassword"
+                    android:paddingEnd="60dp">
 
                 </EditText>
 
@@ -119,6 +120,15 @@
 
             </FrameLayout>
 
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/error_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_error"
+                android:drawablePadding="5dp"
+                android:text="Password Incorrect!" />
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -131,7 +141,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/custom_button_in_register"
-                    android:backgroundTint="@color/neon_blue"
+                    android:backgroundTint="@color/gray_ccc"
                     android:onClick="setupProfile"
                     android:text="Setup Profile"
                     android:textColor="@color/white"
