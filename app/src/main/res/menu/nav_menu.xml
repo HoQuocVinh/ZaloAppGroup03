@@ -21,9 +21,9 @@
         app:showAsAction="ifRoom">
         <menu>
             <item
-                android:id="@+id/nav_dd_friend"
+                android:id="@+id/nav_add_friend"
                 android:icon="@drawable/ic_add_friend"
-                android:title="@string/add_friend"
+                android:title="@string/add_friend_contact"
                 app:showAsAction="never" />
             <item
                 android:id="@+id/nav_crate_group"

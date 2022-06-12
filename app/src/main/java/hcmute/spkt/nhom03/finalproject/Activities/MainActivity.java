@@ -87,12 +87,21 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.nav_menu, menu);
         designSearchView(menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.nav_add_friend){
+            startActivity(new Intent(MainActivity.this, ContactActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void designSearchView(Menu menu) {

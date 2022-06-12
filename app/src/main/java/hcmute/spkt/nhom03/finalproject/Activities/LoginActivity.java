@@ -58,7 +58,6 @@ public class LoginActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         users = new ArrayList<>();
         usersAdapter = new UsersAdapter(this, users);
-        database = FirebaseDatabase.getInstance();
         reference = database.getReference("users");
     }
 
