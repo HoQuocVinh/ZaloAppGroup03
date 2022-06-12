@@ -61,18 +61,30 @@ public class MessageAdapter extends RecyclerView.Adapter {
         Message message = messages.get(position);
         if (holder.getClass() == SentViewHolder.class) {
             SentViewHolder viewHolder = (SentViewHolder) holder;
-            if (message.getMessage().equals("photo")) {
+            if (message.getMessage().equals("[photo*]")) {
                 viewHolder.binding.imgView.setVisibility(View.VISIBLE);
                 viewHolder.binding.message.setVisibility(View.GONE);
+                viewHolder.binding.voicePlayerView.setVisibility(View.GONE);
                 Glide.with(context).load(message.getImageUrl()).into(viewHolder.binding.imgView);
+            } else if (message.getMessage().equals("[voice*]")) {
+                viewHolder.binding.imgView.setVisibility(View.GONE);
+                viewHolder.binding.message.setVisibility(View.GONE);
+                viewHolder.binding.voicePlayerView.setVisibility(View.VISIBLE);
+                viewHolder.binding.voicePlayerView.setAudio(message.getVoiceUrl());
             }
             viewHolder.binding.message.setText(message.getMessage());
         } else {
             ReceiverViewHolder viewHolder = (ReceiverViewHolder) holder;
-            if (message.getMessage().equals("photo")) {
+            if (message.getMessage().equals("[photo*]")) {
                 viewHolder.binding.imgView.setVisibility(View.VISIBLE);
                 viewHolder.binding.message.setVisibility(View.GONE);
+                viewHolder.binding.voicePlayerView.setVisibility(View.GONE);
                 Glide.with(context).load(message.getImageUrl()).into(viewHolder.binding.imgView);
+            } else if (message.getMessage().equals("[voice*]")) {
+                viewHolder.binding.imgView.setVisibility(View.GONE);
+                viewHolder.binding.message.setVisibility(View.GONE);
+                viewHolder.binding.voicePlayerView.setVisibility(View.VISIBLE);
+                viewHolder.binding.voicePlayerView.setAudio(message.getVoiceUrl());
             }
             viewHolder.binding.message.setText(message.getMessage());
             Intent intent = new Intent();

@@ -25,7 +25,30 @@
             android:layout_marginEnd="15dp"
             android:src="@drawable/img_avt" />
 
-
+        <me.jagar.chatvoiceplayerlibrary.VoicePlayerView
+            android:layout_marginTop="5dp"
+            android:visibility="gone"
+            android:layout_marginEnd="15dp"
+            android:id="@+id/voicePlayerView"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            app:enableVisualizer="true"
+            app:visualizationPlayedColor="#ff7700"
+            app:visualizationNotPlayedColor="#727171"
+            app:playPauseBackgroundColor="#ff7700"
+            app:timingBackgroundColor="#6AFF7700"
+            app:seekBarProgressColor="#000"
+            app:showShareButton="false"
+            app:shareCornerRadius="100"
+            app:playPauseCornerRadius="100"
+            app:showTiming="true"
+            app:viewCornerRadius="100"
+            app:viewBackground="#C6C4CF"
+            app:progressTimeColor="#000"
+            app:seekBarThumbColor="#FFC107"
+            app:shareBackgroundColor="#ff7700"
+            app:playProgressbarColor="#ff7700"
+            app:shareText="SHARE ME"/>
         <TextView
             android:id="@+id/message"
             android:layout_width="wrap_content"

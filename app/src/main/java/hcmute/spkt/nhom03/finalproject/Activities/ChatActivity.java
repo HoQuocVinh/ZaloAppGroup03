@@ -232,10 +232,11 @@ public class ChatActivity extends AppCompatActivity {
                         for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                             Message message = snapshot1.getValue(Message.class);
                             messages.add(message);
-                            binding.recyclerView.smoothScrollToPosition(Objects.requireNonNull(binding.recyclerView.getAdapter()).getItemCount()-1);
+                            binding.recyclerView.smoothScrollToPosition(Objects.requireNonNull(binding.recyclerView.getAdapter()).getItemCount() - 1);
                         }
                         adapter.notifyDataSetChanged();
                     }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
 
@@ -345,12 +346,11 @@ public class ChatActivity extends AppCompatActivity {
         binding.recordButton.setRecordView(binding.recordView);
         //* if you want to click the button (in case if you want to make the record button a Send Button for example..)
         //* recordButton.setListenForRecord(false);
-        binding.imgRecord1.setOnClickListener(v->{
-            if(binding.recordButton.isListenForRecord()){
+        binding.imgRecord1.setOnClickListener(v -> {
+            if (binding.recordButton.isListenForRecord()) {
                 binding.recordButton.setListenForRecord(false);
                 Toast.makeText(this, "onClickEnabled", Toast.LENGTH_SHORT).show();
-            }
-            else {
+            } else {
                 binding.recordButton.setListenForRecord(false);
                 Toast.makeText(this, "onClickDisabled", Toast.LENGTH_SHORT).show();
             }
@@ -400,13 +400,7 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
     }
-
-    private void uploadRecord() {
-        Uri uri = Uri.fromFile(new File(recordFile.getPath()));
-        StorageReference filePath = mStorage.child("Audio").child(UUID.randomUUID().toString() + ".3gp");
-        filePath.putFile(uri).addOnSuccessListener(taskSnapshot ->
-                Toast.makeText(ChatActivity.this, "Uploaded success!", Toast.LENGTH_SHORT).show());
-    }
+    
 
     private void stopRecording(boolean deleteFile) {
         audioRecord.stop();
@@ -464,6 +458,49 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
+
+
+    private void uploadRecord() {
+        Uri selectedVoice = Uri.fromFile(new File(recordFile.getPath()));
+        StorageReference reference = mStorage.child("Audio").child(UUID.randomUUID().toString() + ".3gp");
+
+        dialog.setMessage("Upload voice...");
+        dialog.show();
+        reference.putFile(selectedVoice).addOnCompleteListener(task -> {
+            dialog.dismiss();
+            if (task.isSuccessful()) {
+                reference.getDownloadUrl().addOnSuccessListener(uri -> {
+                    String filePath = uri.toString();
+                    String messageTxt = "[voice]";
+                    Date date = new Date();
+                    Message message = new Message(messageTxt, senderUid, date.getTime());
+                    HashMap<String, Object> lastMsgObj = new HashMap<>();
+
+                    lastMsgObj.put("lastMsg", message.getMessage());
+                    lastMsgObj.put("lastMsgTime", date.getTime());
+
+                    database.getReference().child("chats").child(senderRoom).updateChildren(lastMsgObj);
+                    database.getReference().child("chats").child(receiverRoom).updateChildren(lastMsgObj);
+
+                    message.setMessage("[voice*]");
+                    message.setVoiceUrl(filePath);
+                    binding.edtChat.setText("");
+                    database.getReference().child("chats")
+                            .child(senderRoom)
+                            .child("messages")
+                            .push()
+                            .setValue(message).addOnSuccessListener(avoid -> database.getReference().child("chats")
+                            .child(receiverRoom)
+                            .child("messages")
+                            .push()
+                            .setValue(message).addOnSuccessListener(avoid1 -> {
+
+                            }));
+                });
+            }
+        });
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -489,7 +526,7 @@ public class ChatActivity extends AppCompatActivity {
                                 database.getReference().child("chats").child(senderRoom).updateChildren(lastMsgObj);
                                 database.getReference().child("chats").child(receiverRoom).updateChildren(lastMsgObj);
 
-                                message.setMessage("photo");
+                                message.setMessage("[photo*]");
                                 message.setImageUrl(filePath);
                                 binding.edtChat.setText("");
                                 database.getReference().child("chats")
@@ -509,7 +546,6 @@ public class ChatActivity extends AppCompatActivity {
                 }
             }
         }
-
     }
 
     @Override
