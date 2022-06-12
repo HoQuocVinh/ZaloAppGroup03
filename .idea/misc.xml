@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/circle.xml" value="0.225" />
+        <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/custom_btn_voice.xml" value="0.193" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/custom_button.xml" value="0.338" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/custom_button_in_register.xml" value="0.206" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/custom_button_top.xml" value="0.225" />
@@ -21,10 +22,13 @@
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/ic_hide_pass.xml" value="0.319" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/ic_lock.xml" value="0.319" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/ic_phone.xml" value="0.319" />
+        <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/ic_photo.xml" value="0.225" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/ic_send.xml" value="0.1" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/ic_send_30.xml" value="0.2035" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/ic_show_pass.xml" value="0.319" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/ic_user.xml" value="0.319" />
+        <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/ic_voice.xml" value="0.176" />
+        <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/ic_voice_white.xml" value="0.193" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/receive_drawable.xml" value="0.225" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/receive_drawble.xml" value="0.225" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/send_drawable.xml" value="0.2" />

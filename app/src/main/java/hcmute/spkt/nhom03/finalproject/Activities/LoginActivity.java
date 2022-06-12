@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         users = new ArrayList<>();
         usersAdapter = new UsersAdapter(this, users);
-        database =FirebaseDatabase.getInstance();
+        database = FirebaseDatabase.getInstance();
         reference = database.getReference("users");
     }
 
@@ -82,28 +82,30 @@ public class LoginActivity extends AppCompatActivity {
                     users.add(user);    /*Add dữ liệu nhận từ realtime database vào user (ArrayList)*/
                 }
 
-                usersAdapter.notifyDataSetChanged();    /*Commit lại sự thay đổi*/
-                for (User user : users) {   /*Chạy vòng lăp for trên ArrayList*/
-                    String phoneAuth = user.getPhoneNumber();   /*Tạo một biến phoneAuth kiểu string để nhận giá trị phoneNumber*/
-                    String passwordAuth = user.getPassword();   /*Tạo một biến passwordAuth kiểu string để nhận giá trị password*/
-                    String nameAuth = user.getName();
+                usersAdapter.notifyDataSetChanged();    //*Commit lại sự thay đổi
+                boolean isHasUser = false;
+                for (User user : users) {   //* Chạy vòng lăp for trên ArrayList
+                    String phoneAuth = user.getPhoneNumber();   //* Tạo một biến phoneAuth kiểu string để nhận giá trị phoneNumber
+                    String passwordAuth = user.getPassword();   //* Tạo một biến passwordAuth kiểu string để nhận giá trị password
 
                     if (phone.equals(phoneAuth) && password.equals(passwordAuth)) {
-                        binding.progressBar.setVisibility(View.INVISIBLE);  /* Ẩn progress bar đi để show lại button login*/
-                        binding.btnLogin.setVisibility(View.VISIBLE);   /* Show button login */
-//                        Toast.makeText(LoginActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();
-                        /*Gọi hàm startActivity() để chuyển từ trang hiện tại (login) vào trong chủ (main)*/
-                        binding.error.setVisibility(View.GONE); /*Ẩn thông báo error đi*/
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        /*Gọi hàm closeKeyboard() để ẩn bàng phím đi trong quá trình chuyển từ LoginActivity sang MainActivity*/
-                        closeKeyboard();
-                        finish();
+                        isHasUser = true;
                         break;
-                    } else {
-                        binding.progressBar.setVisibility(View.INVISIBLE);  /* Ẩn progress bar đi để show lại button login*/
-                        binding.btnLogin.setVisibility(View.VISIBLE);   /* Show button login */
-                        binding.error.setVisibility(View.VISIBLE);  /*Show thông báo error bằng TextView đã được design trong file activity_login.xml*/
                     }
+                }
+                if (isHasUser) {
+                    binding.progressBar.setVisibility(View.INVISIBLE);  /* Ẩn progress bar đi để show lại button login*/
+                    binding.btnLogin.setVisibility(View.VISIBLE);   /* Show button login */
+//                        Toast.makeText(LoginActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();
+                    /*Gọi hàm startActivity() để chuyển từ trang hiện tại (login) vào trong chủ (main)*/
+                    binding.error.setVisibility(View.GONE); /*Ẩn thông báo error đi*/
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    /*Gọi hàm closeKeyboard() để ẩn bàng phím đi trong quá trình chuyển từ LoginActivity sang MainActivity*/
+                    closeKeyboard();
+                } else {
+                    binding.progressBar.setVisibility(View.INVISIBLE);  /* Ẩn progress bar đi để show lại button login*/
+                    binding.btnLogin.setVisibility(View.VISIBLE);   /* Show button login */
+                    binding.error.setVisibility(View.VISIBLE);  /*Show thông báo error bằng TextView đã được design trong file activity_login.xml*/
                 }
             }
 

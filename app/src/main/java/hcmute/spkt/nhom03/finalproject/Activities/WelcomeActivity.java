@@ -20,9 +20,9 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         binding = ActivityWelcomeBinding.inflate(getLayoutInflater());
         FirebaseAuth auth= FirebaseAuth.getInstance();
-//        if(auth.getCurrentUser()!=null){
-//            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
-//        }
+        if(auth.getCurrentUser()!=null){
+            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+        }
         setContentView(binding.getRoot());
         mapping();
         closeKeyboard();
@@ -33,6 +33,7 @@ public class WelcomeActivity extends AppCompatActivity {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
     }
+
 
     public void mapping() {
 //        imageSlider = (ImageSlider) findViewById(R.id.img_slider);

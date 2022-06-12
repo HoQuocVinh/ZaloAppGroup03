@@ -61,17 +61,12 @@ public class MessageAdapter extends RecyclerView.Adapter {
         Message message = messages.get(position);
         if (holder.getClass() == SentViewHolder.class) {
             SentViewHolder viewHolder = (SentViewHolder) holder;
-
             if (message.getMessage().equals("photo")) {
                 viewHolder.binding.imgView.setVisibility(View.VISIBLE);
                 viewHolder.binding.message.setVisibility(View.GONE);
                 Glide.with(context).load(message.getImageUrl()).into(viewHolder.binding.imgView);
             }
             viewHolder.binding.message.setText(message.getMessage());
-//            User user = users.get(position);
-//            Glide.with(context).load(user.getProfileImage())
-//                    .placeholder(R.drawable.img_avt)
-//                    .into(viewHolder.binding.imgView);
         } else {
             ReceiverViewHolder viewHolder = (ReceiverViewHolder) holder;
             if (message.getMessage().equals("photo")) {
@@ -93,7 +88,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
         return messages.size();
     }
 
-    public class SentViewHolder extends RecyclerView.ViewHolder {
+    public static class SentViewHolder extends RecyclerView.ViewHolder {
         ItemSentBinding binding;
 
         public SentViewHolder(@NonNull View itemView) {
@@ -102,7 +97,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public class ReceiverViewHolder extends RecyclerView.ViewHolder {
+    public static class ReceiverViewHolder extends RecyclerView.ViewHolder {
         ItemReceiveBinding binding;
 
         public ReceiverViewHolder(@NonNull View itemView) {
