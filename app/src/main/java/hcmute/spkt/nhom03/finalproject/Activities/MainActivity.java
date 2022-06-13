@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth auth;
     ArrayList<User> users;
     UsersAdapter usersAdapter;
-    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
 
         users = new ArrayList<>();
         usersAdapter = new UsersAdapter(this, users);
-//        binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(usersAdapter);
 
         database.getReference().
@@ -78,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                         usersAdapter.notifyDataSetChanged();
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
 
@@ -96,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if(id == R.id.nav_add_friend){
+        if (id == R.id.nav_add_friend) {
             startActivity(new Intent(MainActivity.this, ContactActivity.class));
             return true;
         }
@@ -104,40 +101,40 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void designSearchView(Menu menu) {
-        /* Mapping menuItem với id là nav_search*/
+        //*  Mapping menuItem với id là nav_search
         MenuItem menuItem = menu.findItem(R.id.nav_search);
 
-        /*Sử dụng SearchManager để tạo thanh search trên action bar*/
+        //* Sử dụng SearchManager để tạo thanh search trên action bar
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menuItem.getActionView();
 
-        /*Set background cho thanh search thành màu trắng*/
+        //* Set background cho thanh search thành màu trắng
         searchView.setBackgroundColor(Color.WHITE);
 
         MenuItem menuItem1 = menu.findItem(R.id.nav_add);
-        /*Custom lại thanh search (vd: radius)*/
+        //* Custom lại thanh search (vd: radius)
         searchView.setBackgroundResource(R.drawable.custom_search_view);
 
-        /*Tạo hint cho người dùng có thể biết khi sử dụng search view */
+        //* Tạo hint cho người dùng có thể biết khi sử dụng search view
         searchView.setQueryHint("Search friends, message");
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
-        /*Tăng max độ dài cho search view*/
+        //* Tăng max độ dài cho search view
         searchView.setMaxWidth(Integer.MAX_VALUE);
 
-        /*Mapping editText với id search_src_text*/
+        //* Mapping editText với id search_src_text
         EditText editText = (EditText) searchView.findViewById(androidx.appcompat.R.id.search_src_text);
 
-        /*Thay đổi mày chữ trong search view thành màu đen*/
+        //* Thay đổi mày chữ trong search view thành màu đen
         editText.setTextColor(Color.BLACK);
 
-        /*Thay đổi màu của hint trong search view thành màu xám*/
+        //* Thay đổi màu của hint trong search view thành màu xám
         editText.setHintTextColor(Color.GRAY);
 
-        /*Đưa icon search vào phía bên trái của search view trên action bar*/
+        //* Đưa icon search vào phía bên trái của search view trên action bar
         editText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_search_gray, 0, 0, 0);
 
-        /*Set pađing cho icon vừa được đưa vào trong search view*/
+        //* Set pađing cho icon vừa được đưa vào trong search view
         editText.setCompoundDrawablePadding(10);
     }
 
@@ -147,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
         /*Thay đổi màu của actionbar vớ mã màu #0091FF*/
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#0091FF"));
         Objects.requireNonNull(actionBar).setBackgroundDrawable(colorDrawable);
-//        actionBar.setDisplayShowTitleEnabled(false);
     }
 
     @Override
@@ -156,11 +152,4 @@ public class MainActivity extends AppCompatActivity {
         String currentId = FirebaseAuth.getInstance().getUid();
         database.getReference().child("presence").child(Objects.requireNonNull(currentId)).setValue("Online");
     }
-
-//    @Override
-//    protected void onStop() {
-//        String currentId = FirebaseAuth.getInstance().getUid();
-//        database.getReference().child("presence").child(currentId).setValue("Offline");
-//        super.onStop();
-//    }
 }
