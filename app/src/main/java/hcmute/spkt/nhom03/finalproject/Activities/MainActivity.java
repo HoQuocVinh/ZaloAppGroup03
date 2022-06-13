@@ -45,9 +45,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        /*Gọi hàm changeColorActionBar() đã được khởi tạo bên dưới đ*/
+        //* Gọi hàm changeColorActionBar() đã được khởi tạo bên
         changeColorActionBar();
-//        sendData();
+
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         FirebaseMessaging.getInstance().getToken().addOnSuccessListener(token -> {
@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
                     .child("users")
                     .child(Objects.requireNonNull(auth.getUid()))
                     .updateChildren(map);
-//            Toast.makeText(this, token, Toast.LENGTH_SHORT).show();
         });
 
         users = new ArrayList<>();

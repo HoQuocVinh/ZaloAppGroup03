@@ -38,65 +38,70 @@ public class ContactActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityContactBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        //* Set actionbar với "toolbar", "toolbar" --> được design trong xml
         setSupportActionBar(binding.toolbar);
+        //* Set sẹ kiện click cho btnBack
+        //* Có tác dụng quay lại MainActivity
         binding.btnBack.setOnClickListener(v -> finish());
-
+        //* Mapping contacts
         contacts = new ArrayList<>();
-
+        //* Mapping lại database và nhận dữ liệu từ Firebase
         database = FirebaseDatabase.getInstance();
+        //* Mapping reference và nhận dữ liệu từ Firebase với đường dẫn dược gán "users"
         reference = database.getReference("users");
-
+        //* Mapping user
         users = new ArrayList<>();
+        //* Mapping userAdapter
         usersAdapter = new UsersAdapter(this, users);
-
+        //* Gọi hàm kiểm tra cấp quyền
         checkPermission();
     }
 
     private void checkPermission() {
-        //* Check condition
+        //* Kiểm tra tình trạng
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)
-            //* When permission is not granted
-            //* Request permission
+            //* Khi chưa được cấp quyền
+            //* Thực hiện yêu cầu xin cấp quyền
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, 100);
         else
-            //* When permission is granted
+            //* Khi đã được cấp quyền
             //* Create method
             getContactList();
     }
 
     private void getContactList() {
-        //* Initialize uri
+        //* Khở tạo uri
         Uri uri = ContactsContract.Contacts.CONTENT_URI;
-        //* Sort by ascending
+        //* Sắp xếp các name theo thứ tự tăng dần của bảng mã ASC
         String sort = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + "ASC";
-        //* Initialize cursor
+        //* Khởi tạo cursor
         @SuppressLint("Recycle") Cursor cursor = getContentResolver()
                 .query(uri, null, null, null, sort);
-        //* Check condition
+        //* Kiểm tra tìnfh trạng
         if (cursor.getCount() > 0) {
-            //* When count is grater than 0
+            //* Khi số lượng lớn hơn 0
             while (cursor.moveToNext()) {
-                //* Cursor move to next
+                //* Di chuyển con trỏ đến vị trí tiếp theo
                 //* Get contact id
                 @SuppressLint("Range") String id =
                         cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
                 //* Get contact name
                 @SuppressLint("Range") String name =
                         cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-                //* Initialize phone uri
+                //* Khởi tạo phone uri
                 Uri uriPhone = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
-                //* Initialize selection
+                //* Khởi tạo selection
                 String selection = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " =?";
-                //* Initialize phone cursor
+                //* Khởi tạo phone cursor
                 @SuppressLint("Recycle") Cursor phoneCursor =
                         getContentResolver()
                                 .query(uriPhone, null, selection, new String[]{id}, null);
-                //* Check condition
+                //* Kiểm tra tình trạng
                 if (phoneCursor.moveToNext()) {
-                    //* When phone cursor move to next
+                    //* Khi phoneCursor di chuyển đến vị trí tiếp theo
                     @SuppressLint("Range") String number = phoneCursor
                             .getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                    //* Initialize contact model
+                    //* khởi tạo contact model
                     contact = new Contact();
                     //* Set name
                     contact.setName(name);
@@ -113,7 +118,7 @@ public class ContactActivity extends AppCompatActivity {
         }
         //* Set layout manager
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //* Initialize adapter
+        //* Khởi tạo adapter
         contactAdapter = new ContactAdapter(this, contacts);
         //* Set adapter
         binding.recyclerView.setAdapter(contactAdapter);
