@@ -123,5 +123,4 @@ public class ContactActivity extends AppCompatActivity {
         //* Set adapter
         binding.recyclerView.setAdapter(contactAdapter);
     }
-
 }

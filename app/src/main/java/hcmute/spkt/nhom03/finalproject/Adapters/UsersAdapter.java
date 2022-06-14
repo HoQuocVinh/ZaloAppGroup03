@@ -24,7 +24,7 @@ import java.util.Date;
 import hcmute.spkt.nhom03.finalproject.Activities.ChatActivity;
 import hcmute.spkt.nhom03.finalproject.R;
 import hcmute.spkt.nhom03.finalproject.Models.User;
-import hcmute.spkt.nhom03.finalproject.databinding.RowConverstationBinding;
+import hcmute.spkt.nhom03.finalproject.databinding.RowConversationBinding;
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHolder>{
 
     Context context;
@@ -39,7 +39,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
     @NonNull
     @Override
     public UsersViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.row_converstation, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_conversation, parent, false);
         return new UsersViewHolder(view);
     }
 
@@ -97,10 +97,10 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
     }
 
     public static class UsersViewHolder extends RecyclerView.ViewHolder{
-        RowConverstationBinding binding;
+        RowConversationBinding binding;
         public UsersViewHolder(@NonNull View itemView) {
             super(itemView);
-            binding = RowConverstationBinding.bind(itemView);
+            binding = RowConversationBinding.bind(itemView);
         }
     }
 }

@@ -15,30 +15,22 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.messaging.FirebaseMessaging;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Objects;
 
-import hcmute.spkt.nhom03.finalproject.Adapters.UsersAdapter;
-import hcmute.spkt.nhom03.finalproject.Models.User;
+import hcmute.spkt.nhom03.finalproject.Fragment.FragmentContact;
+import hcmute.spkt.nhom03.finalproject.Fragment.FragmentSetting;
+import hcmute.spkt.nhom03.finalproject.Fragment.FragmentUsers;
 import hcmute.spkt.nhom03.finalproject.R;
 import hcmute.spkt.nhom03.finalproject.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
-    ActivityMainBinding binding;
-    FirebaseDatabase database;
-    FirebaseAuth auth;
-    ArrayList<User> users;
-    UsersAdapter usersAdapter;
+    ActivityMainBinding binding;;
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,41 +38,42 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         //* Gọi hàm changeColorActionBar() đã được khởi tạo bên
         changeColorActionBar();
-
-        auth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
-        FirebaseMessaging.getInstance().getToken().addOnSuccessListener(token -> {
-            HashMap<String, Object> map = new HashMap<>();
-            map.put("token", token);
-            database.getReference()
-                    .child("users")
-                    .child(Objects.requireNonNull(auth.getUid()))
-                    .updateChildren(map);
+        replaceFragment(new FragmentUsers());
+        //* Set sẹ kiện click cho từng item
+        binding.navBottom.setOnItemSelectedListener(item ->{
+            //* Sử dụng switch case
+            switch (item.getItemId()){
+                //* Nếu click vào item nav_message ở dới navigation bottom
+                case R.id.nav_message:  //* Nếu id của item là nav_message
+                    //* Thực hiện replace fragmentUser
+                    replaceFragment(new FragmentUsers());
+                    //* Thoát khỏi switch case
+                    break;
+                case R.id.contacts: //* Nếu id của item là contacts
+                    //* Thực hiện replace fragmentContact
+                    replaceFragment(new FragmentContact());
+                    //* Thoát khỏi switch case
+                    break;
+                case R.id.setting:  //* Nếu id của tem là setting
+                    //* Thực hiện replace fragmentSetting
+                    replaceFragment(new FragmentSetting());
+                    //* Thoát khỏi switch case
+                    break;
+            }
+            //* Kết thục sự kiện click
+            return true;
         });
+    }
 
-        users = new ArrayList<>();
-        usersAdapter = new UsersAdapter(this, users);
-        binding.recyclerView.setAdapter(usersAdapter);
-
-        database.getReference().
-                child("users").
-                addValueEventListener(new ValueEventListener() {
-                    @SuppressLint("NotifyDataSetChanged")
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        users.clear();
-                        for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                            User user = snapshot1.getValue(User.class);
-                            if (!Objects.requireNonNull(user).getUid().equals(FirebaseAuth.getInstance().getUid()))
-                                users.add(user);
-                        }
-                        usersAdapter.notifyDataSetChanged();
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+    private void replaceFragment(Fragment fragment){
+        //*Khỏi tạo fragmentManager
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        //* Khởi tạo fragmentTransaction
+        FragmentTransaction fragmentTransaction  = fragmentManager.beginTransaction();
+        //* Thực hiện replace fragment "fragment_container --> design trong xml"
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        //* Commit để hoàn thành sự thay đổi
+        fragmentTransaction.commit();
     }
 
     @Override
@@ -93,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.nav_add_friend) {
+        if(id == R.id.nav_add_friend){
             startActivity(new Intent(MainActivity.this, ContactActivity.class));
             return true;
         }
@@ -101,40 +94,40 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void designSearchView(Menu menu) {
-        //*  Mapping menuItem với id là nav_search
+        /* Mapping menuItem với id là nav_search*/
         MenuItem menuItem = menu.findItem(R.id.nav_search);
 
-        //* Sử dụng SearchManager để tạo thanh search trên action bar
+        /*Sử dụng SearchManager để tạo thanh search trên action bar*/
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menuItem.getActionView();
 
-        //* Set background cho thanh search thành màu trắng
+        /*Set background cho thanh search thành màu trắng*/
         searchView.setBackgroundColor(Color.WHITE);
 
         MenuItem menuItem1 = menu.findItem(R.id.nav_add);
-        //* Custom lại thanh search (vd: radius)
+        /*Custom lại thanh search (vd: radius)*/
         searchView.setBackgroundResource(R.drawable.custom_search_view);
 
-        //* Tạo hint cho người dùng có thể biết khi sử dụng search view
+        /*Tạo hint cho người dùng có thể biết khi sử dụng search view */
         searchView.setQueryHint("Search friends, message");
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
-        //* Tăng max độ dài cho search view
+        /*Tăng max độ dài cho search view*/
         searchView.setMaxWidth(Integer.MAX_VALUE);
 
-        //* Mapping editText với id search_src_text
+        /*Mapping editText với id search_src_text*/
         EditText editText = (EditText) searchView.findViewById(androidx.appcompat.R.id.search_src_text);
 
-        //* Thay đổi mày chữ trong search view thành màu đen
+        /*Thay đổi mày chữ trong search view thành màu đen*/
         editText.setTextColor(Color.BLACK);
 
-        //* Thay đổi màu của hint trong search view thành màu xám
+        /*Thay đổi màu của hint trong search view thành màu xám*/
         editText.setHintTextColor(Color.GRAY);
 
-        //* Đưa icon search vào phía bên trái của search view trên action bar
+        /*Đưa icon search vào phía bên trái của search view trên action bar*/
         editText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_search_gray, 0, 0, 0);
 
-        //* Set pađing cho icon vừa được đưa vào trong search view
+        /*Set pađing cho icon vừa được đưa vào trong search view*/
         editText.setCompoundDrawablePadding(10);
     }
 
@@ -144,12 +137,20 @@ public class MainActivity extends AppCompatActivity {
         /*Thay đổi màu của actionbar vớ mã màu #0091FF*/
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#0091FF"));
         Objects.requireNonNull(actionBar).setBackgroundDrawable(colorDrawable);
+//        actionBar.setDisplayShowTitleEnabled(false);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        String currentId = FirebaseAuth.getInstance().getUid();
-        database.getReference().child("presence").child(Objects.requireNonNull(currentId)).setValue("Online");
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        String currentId = FirebaseAuth.getInstance().getUid();
+//        database.getReference().child("presence").child(Objects.requireNonNull(currentId)).setValue("Online");
+//    }
+
+//    @Override
+//    protected void onStop() {
+//        String currentId = FirebaseAuth.getInstance().getUid();
+//        database.getReference().child("presence").child(currentId).setValue("Offline");
+//        super.onStop();
+//    }
 }

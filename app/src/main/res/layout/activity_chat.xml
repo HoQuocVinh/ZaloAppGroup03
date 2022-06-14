@@ -148,11 +148,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="15dp"
         app:layout_constraintBottom_toTopOf="@id/cardView"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginBottom="15dp"
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
@@ -161,13 +161,14 @@
     <LinearLayout
         android:id="@+id/linear_record"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="300dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:visibility="gone"
         android:weightSum="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHeight_percent="0.43">
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <com.devlomi.record_view.RecordView
             android:id="@+id/record_view"
@@ -189,21 +190,5 @@
             android:scaleType="centerInside"
             app:mic_icon="@drawable/recv_ic_mic_white" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_weight="0.5"
-            android:layout_height="match_parent">
-
-            <com.devlomi.record_view.RecordLockView
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:visibility="gone"
-                android:id="@+id/record_lock"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_weight="0.5"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

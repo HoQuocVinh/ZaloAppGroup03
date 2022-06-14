@@ -1,9 +1,11 @@
 package hcmute.spkt.nhom03.finalproject.Activities;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +22,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.android.volley.AuthFailureError;
@@ -53,7 +57,6 @@ import java.util.concurrent.TimeUnit;
 import hcmute.spkt.nhom03.finalproject.Adapters.MessageAdapter;
 import hcmute.spkt.nhom03.finalproject.Controller.AudioRecorder;
 import hcmute.spkt.nhom03.finalproject.Models.Message;
-import hcmute.spkt.nhom03.finalproject.Permissions.Permissions;
 import hcmute.spkt.nhom03.finalproject.R;
 import hcmute.spkt.nhom03.finalproject.databinding.ActivityChatBinding;
 
@@ -62,7 +65,6 @@ public class ChatActivity extends AppCompatActivity {
     ActivityChatBinding binding;
     MessageAdapter adapter;
     ArrayList<Message> messages;
-    Permissions permissions;
     String senderRoom, receiverRoom;
     FirebaseDatabase database;
     FirebaseStorage storage;
@@ -97,7 +99,7 @@ public class ChatActivity extends AppCompatActivity {
         audioRecord = new AudioRecorder();
 
         binding.edtChat.addTextChangedListener(textWatcher);
-        showRecord();
+        showLayoutRecordBelow();
         //* Tạo các biến kiểu String để nhận các giá trị được gửi từ UsersAdapter
         name = getIntent().getStringExtra("name");
         profile = getIntent().getStringExtra("image");
@@ -122,54 +124,55 @@ public class ChatActivity extends AppCompatActivity {
         chat();
     }
 
-    private void showRecord() {
-        binding.rootView.getViewTreeObserver().addOnGlobalLayoutListener(
-                () -> {
-                    Rect r = new Rect();
-                    binding.rootView.getWindowVisibleDisplayFrame(r);
-                    int screenHeight = binding.rootView.getRootView().getHeight();
+    private void showLayoutRecordBelow() {
+        binding.rootView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+            Rect r = new Rect();
+            binding.rootView.getWindowVisibleDisplayFrame(r);
+            int screenHeight = binding.rootView.getRootView().getHeight();
 
-                    // r.bottom is the position above soft keypad or device button.
-                    // if keypad is shown, the r.bottom is smaller than that before.
-                    int keypadHeight = screenHeight - r.bottom;
-
-                    if (keypadHeight > screenHeight * 0.15) { // 0.15 ratio is perhaps enough to determine keypad height.
-                        // keyboard is opened
-                        binding.imgRecord1.setOnClickListener(v -> {
-                            binding.imgRecord1.setVisibility(View.INVISIBLE);
-                            binding.imgRecord2.setVisibility(View.VISIBLE);
-                            binding.linearRecord.setVisibility(View.VISIBLE);
-                            closeKeyboard();
-                        });
-                    } else {
-                        // keyboard is closed
-                        binding.edtChat.setOnClickListener(v -> {
-                            showKeyboard();
-                            binding.linearRecord.setVisibility(View.GONE);
-                            binding.imgRecord2.setVisibility(View.GONE);
-                            binding.imgRecord1.setVisibility(View.VISIBLE);
-                        });
-
-                        binding.imgRecord1.setOnClickListener(v -> {
-                            binding.imgRecord1.setVisibility(View.INVISIBLE);
-                            binding.imgRecord2.setVisibility(View.VISIBLE);
-                            binding.linearRecord.setVisibility(View.VISIBLE);
-                        });
-                        binding.imgRecord2.setOnClickListener(v -> {
-                            binding.imgRecord2.setVisibility(View.INVISIBLE);
-                            binding.imgRecord1.setVisibility(View.VISIBLE);
-                            binding.linearRecord.setVisibility(View.GONE);
-                            showKeyboard();
-                        });
-                    }
+            // r.bottom is the position above soft keypad or device button.
+            // if keypad is shown, the r.bottom is smaller than that before.
+            int keypadHeight = screenHeight - r.bottom;
+            if (keypadHeight > screenHeight * 0.15) { // 0.15 ratio is perhaps enough to determine keypad height.
+                // keyboard is opened
+                binding.imgRecord1.setOnClickListener(v -> {
+                    checkPermission();
+                    binding.imgRecord1.setVisibility(View.INVISIBLE);
+                    binding.imgRecord2.setVisibility(View.VISIBLE);
+                    binding.linearRecord.setVisibility(View.VISIBLE);
+                    closeKeyboard();
                 });
+            } else {
+                // keyboard is closed
+                binding.edtChat.setOnClickListener(v -> {
+                    binding.linearRecord.setVisibility(View.GONE);
+                    binding.imgRecord2.setVisibility(View.INVISIBLE);
+                    binding.imgRecord1.setVisibility(View.VISIBLE);
+                });
+
+                binding.imgRecord1.setOnClickListener(v -> {
+                    checkPermission();
+                    binding.imgRecord1.setVisibility(View.INVISIBLE);
+                    binding.imgRecord2.setVisibility(View.VISIBLE);
+                    binding.linearRecord.setVisibility(View.VISIBLE);
+                });
+                binding.imgRecord2.setOnClickListener(v -> {
+                    binding.imgRecord2.setVisibility(View.INVISIBLE);
+                    binding.imgRecord1.setVisibility(View.VISIBLE);
+                    binding.linearRecord.setVisibility(View.GONE);
+                    showKeyboard();
+                });
+            }
+        });
     }
 
+    //* Hiển thị bàng phím
     private void showKeyboard() {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
 
+    //* Đóng bàng phím
     private void closeKeyboard() {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
@@ -275,6 +278,7 @@ public class ChatActivity extends AppCompatActivity {
             closeKeyboard();
             startActivityForResult(intent, 25);
         });
+
         setUpRecord();
         final Handler handler = new Handler();
         binding.edtChat.addTextChangedListener(new TextWatcher() {
@@ -304,64 +308,21 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-    public void setUpRecord() {
-        /*binding.recordButton.setRecordView(binding.recordView);
-        binding.recordView.setOnRecordListener(new OnRecordListener() {
-            @Override
-            public void onStart() {
-                Toast.makeText(ChatActivity.this, "Started Record!", Toast.LENGTH_SHORT).show();
-                //Start Recording..
-//                Log.d("RecordView", "onStart");
-            }
+    private void checkPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED)
+            //* Khi chưa được cấp quyền
+            //* Thực hiện yêu cầu xin cấp quyền
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, 100);
+        else
+            //* Khi đã được cấp quyền
+            //* Create method
+            setUpRecord();
+    }
 
-            @Override
-            public void onCancel() {
-                //On Swipe To Cancel
-                Toast.makeText(ChatActivity.this, "deleted!", Toast.LENGTH_SHORT).show();
-                Log.d("RecordView", "onCancel");
-
-            }
-
-            @Override
-
-            public void onFinish(long recordTime, boolean limitReached) {
-                //limitReached to determine if the Record was finished when time limit reached.
-                Log.d("RecordView", "onFinish");
-                StorageReference filePath = mStorage.child("Audio").child("new_audio.3gp");
-                Uri uri = Uri.fromFile(new File(mFileName));
-                filePath.putFile(uri).addOnSuccessListener(taskSnapshot ->
-                        Toast.makeText(ChatActivity.this, "xong r do!", Toast.LENGTH_SHORT).show());
-            }
-
-            @Override
-            public void onLessThanSecond() {
-                //When the record time is less than One Second
-                Log.d("RecordView", "onLessThanSecond");
-            }
-        });*/
-        //*To Enable Record Lock
-        //* recordView.setLockEnabled(true);
-        //* recordView.setRecordLockImageView(findViewById(R.id.record_lock));
+    private void setUpRecord() {
         //* IMPORTANT
         binding.recordButton.setRecordView(binding.recordView);
         //* if you want to click the button (in case if you want to make the record button a Send Button for example..)
-        //* recordButton.setListenForRecord(false);
-        binding.imgRecord1.setOnClickListener(v -> {
-            if (binding.recordButton.isListenForRecord()) {
-                binding.recordButton.setListenForRecord(false);
-                Toast.makeText(this, "onClickEnabled", Toast.LENGTH_SHORT).show();
-            } else {
-                binding.recordButton.setListenForRecord(false);
-                Toast.makeText(this, "onClickDisabled", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        //* ListenForRecord must be false ,otherwise onClick will not be called
-        binding.recordButton.setOnRecordClickListener(v ->
-                Toast.makeText(ChatActivity.this, "RECORD BUTTON CLICKED", Toast.LENGTH_SHORT).show());
-
-
-        //prevent recording under one Second
         binding.recordView.setLessThanSecondAllowed(false);
         binding.recordView.setOnRecordListener(new OnRecordListener() {
             @Override
@@ -401,7 +362,6 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-
     private void stopRecording(boolean deleteFile) {
         audioRecord.stop();
         if (recordFile != null && deleteFile) {
@@ -417,7 +377,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
 
-    void sendNotification(String name, String message, String token) {
+    public void sendNotification(String name, String message, String token) {
         try {
             RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -457,7 +417,6 @@ public class ChatActivity extends AppCompatActivity {
 
         }
     }
-
 
 
     private void uploadRecord() {

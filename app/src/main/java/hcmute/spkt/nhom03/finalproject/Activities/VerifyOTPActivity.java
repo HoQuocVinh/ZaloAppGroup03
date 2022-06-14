@@ -49,10 +49,7 @@ public class VerifyOTPActivity extends AppCompatActivity {
         showKeyboard();
 
         String phone = getIntent().getStringExtra("sendPhoneToVerify");
-//        FirebaseAuth.getInstance().getFirebaseAuthSettings()
-//                .setAppVerificationDisabledForTesting(true);
         sendVerificationCodeToUser(phone);
-//        OTP();
     }
 
     public void showKeyboard() {
@@ -83,8 +80,6 @@ public class VerifyOTPActivity extends AppCompatActivity {
                         startActivity(new Intent(VerifyOTPActivity.this, SetupProfileActivity.class));
                     } else {
                         Toast.makeText(VerifyOTPActivity.this, "Verification Not Completed! Try again.", Toast.LENGTH_SHORT).show();
-//                        if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-//                        }
                     }
                 });
     }
@@ -105,12 +100,12 @@ public class VerifyOTPActivity extends AppCompatActivity {
         public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
             super.onCodeSent(s, forceResendingToken);
             dialog.dismiss();
-                verificationId = s;
+            verificationId = s;
         }
 
         @Override
         public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-           final String code = phoneAuthCredential.getSmsCode();
+            final String code = phoneAuthCredential.getSmsCode();
             showKeyboard();
             if (code != null) {
                 otpView.setText(code);
@@ -124,73 +119,4 @@ public class VerifyOTPActivity extends AppCompatActivity {
             dialog.dismiss();
         }
     };
-
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-//        if(firebaseUser != null) {
-//            startActivity(new Intent(VerifyOTPActivity.this, SetupProfileActivity.class));
-//            finish();
-//        }
-//    }
-
-
-   //    }
-//    private void OTP() {
-//        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-//        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
-//        Intent intent = getIntent();
-//        String phone = getIntent().getStringExtra("sendPhoneToVerify");
-//        auth = FirebaseAuth.getInstance();
-//        PhoneAuthOptions options = PhoneAuthOptions.newBuilder(auth)
-//                .setPhoneNumber(phone)
-//                .setTimeout(90L, TimeUnit.SECONDS)
-//                .setActivity(VerifyOTPActivity.this)
-//                .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-//                    @Override
-//                    public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-//                        String code = phoneAuthCredential.getSmsCode();
-//                        if (code != null) {
-//                            otpView.setText(code);
-//                            verifyCode(code);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onVerificationFailed(@NonNull FirebaseException e) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-//                        super.onCodeSent(s, forceResendingToken);
-//                        dialog.dismiss();
-//                        verificationId = s;
-//                    }
-//                }).build();
-//
-//
-//        auth.setLanguageCode("fr");
-//
-//        PhoneAuthProvider.verifyPhoneNumber(options);
-//        otpView.setOtpCompletionListener(new OnOtpCompletionListener() {
-//            @Override
-//            public void onOtpCompleted(String otp) {
-//                PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, otp);
-//
-//                auth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()) {
-//                            startActivity(new Intent(VerifyOTPActivity.this, SetupProfileActivity.class));
-//                            finishAffinity();
-//                        } else {
-//                            Toast.makeText(VerifyOTPActivity.this, "Failed in", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-//            }
-//        });
-//    }
 }

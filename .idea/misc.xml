@@ -47,6 +47,7 @@
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/content_main.xml" value="0.21822916666666667" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/content_register.xml" value="0.1734375" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/custom_image.xml" value="0.21822916666666667" />
+        <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/fragment_chat.xml" value="0.21822916666666667" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/fragment_enter_name.xml" value="0.264" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/fragment_enter_name_register.xml" value="0.35052083333333334" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/fragment_enter_phone.xml" value="0.264" />
@@ -59,6 +60,7 @@
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/fragment_phone.xml" value="0.1" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/fragment_second.xml" value="0.21822916666666667" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/fragment_send_o_t_p.xml" value="0.2" />
+        <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/fragment_setting.xml" value="0.12681159420289856" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/fragment_veriify_o_t_p.xml" value="0.2" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/item_receive.xml" value="0.2" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/item_send.xml" value="0.21822916666666667" />
