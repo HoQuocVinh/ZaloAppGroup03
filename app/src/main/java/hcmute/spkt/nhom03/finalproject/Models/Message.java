@@ -1,13 +1,30 @@
 package hcmute.spkt.nhom03.finalproject.Models;
 
 public class Message {
-    private String messageId, message, senderId, imageUrl, voiceUrl;
+    private String messageId;
+    private String message;
+    private String senderId;
+    private String imageUrl;
+    private String voiceUrl;
+    private String idRoom;
+
+
+    private String urlImageUser;
     private long timestamp;
     private int feeling = -1;
 
 
     public Message() {
     }
+
+    public String getUrlImageUser() {
+        return urlImageUser;
+    }
+
+    public void setUrlImageUser(String urlImageUser) {
+        this.urlImageUser = urlImageUser;
+    }
+
     public String getVoiceUrl() {
         return voiceUrl;
     }
@@ -16,10 +33,11 @@ public class Message {
         this.voiceUrl = voiceUrl;
     }
 
-    public Message(String message, String senderId, long timestamp) {
+    public Message(String message, String senderId, long timestamp, String idRoom) {
         this.message = message;
         this.senderId = senderId;
         this.timestamp = timestamp;
+        this.idRoom = idRoom;
     }
 
     public String getMessage() {
@@ -28,6 +46,14 @@ public class Message {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getIdRoom() {
+        return idRoom;
+    }
+
+    public void setIdRoom(String idRoom) {
+        this.idRoom = idRoom;
     }
 
     public String getSenderId() {

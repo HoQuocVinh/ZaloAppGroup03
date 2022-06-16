@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/circle.xml" value="0.225" />
+        <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/custom_background_select_image.xml" value="0.163" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/custom_btn_add_contact.xml" value="0.163" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/custom_btn_voice.xml" value="0.193" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/custom_button.xml" value="0.338" />
@@ -14,6 +15,7 @@
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/custom_image.xml" value="0.225" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/custom_search_view.xml" value="0.206" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/foreground_design.xml" value="0.319" />
+        <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/ic_add_a_photo.xml" value="0.163" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/ic_arrow_right.xml" value="0.225" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/ic_back.xml" value="0.319" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.225" />
@@ -65,6 +67,7 @@
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/item_receive.xml" value="0.2" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/item_send.xml" value="0.21822916666666667" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/item_sent.xml" value="0.21822916666666667" />
+        <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/row_conversation.xml" value="0.21822916666666667" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/row_converstation.xml" value="0.4" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/layout/row_converstation_contact.xml" value="0.4" />
         <entry key="..\:/Code/AndroidStudioProject/Project/FinalProject/app/src/main/res/menu/drawer_back.xml" value="0.3458333333333333" />

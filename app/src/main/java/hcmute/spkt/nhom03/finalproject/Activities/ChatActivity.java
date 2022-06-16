@@ -34,8 +34,10 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.devlomi.record_view.OnRecordListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -57,6 +59,7 @@ import java.util.concurrent.TimeUnit;
 import hcmute.spkt.nhom03.finalproject.Adapters.MessageAdapter;
 import hcmute.spkt.nhom03.finalproject.Controller.AudioRecorder;
 import hcmute.spkt.nhom03.finalproject.Models.Message;
+import hcmute.spkt.nhom03.finalproject.Models.User;
 import hcmute.spkt.nhom03.finalproject.R;
 import hcmute.spkt.nhom03.finalproject.databinding.ActivityChatBinding;
 
@@ -68,7 +71,7 @@ public class ChatActivity extends AppCompatActivity {
     String senderRoom, receiverRoom;
     FirebaseDatabase database;
     FirebaseStorage storage;
-
+    FirebaseUser user;
     ProgressDialog dialog;
     String senderUid;
 
@@ -88,6 +91,7 @@ public class ChatActivity extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
         mStorage = FirebaseStorage.getInstance().getReference();
         mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
         mFileName += "/recorded_audio.3gp";
@@ -248,12 +252,31 @@ public class ChatActivity extends AppCompatActivity {
         binding.imgSend.setOnClickListener(v -> {
             String messageTxt = binding.edtChat.getText().toString();
             Date date = new Date();
-            Message message = new Message(messageTxt, senderUid, date.getTime());
+            Message message = new Message(messageTxt, senderUid, date.getTime(), senderRoom);
             binding.edtChat.setText("");
             String randomKey = database.getReference().push().getKey();
             HashMap<String, Object> lastMsgObj = new HashMap<>();
             lastMsgObj.put("lastMsg", message.getMessage());
             lastMsgObj.put("lastMsgTime", date.getTime());
+
+
+            String uid = user.getUid();
+            DatabaseReference reference = database.getReference("users").child(uid);
+            reference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    User user = snapshot.getValue(User.class);
+                    HashMap<String, Object> urlImageUserObj = new HashMap<>();
+                    String urlImage = Objects.requireNonNull(user).getProfileImage();
+                    urlImageUserObj.put("urlImageUser", urlImage);
+                    database.getReference().child("chats").child(senderRoom).updateChildren(urlImageUserObj);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
 
             database.getReference().child("chats").child(senderRoom).updateChildren(lastMsgObj);
             database.getReference().child("chats").child(receiverRoom).updateChildren(lastMsgObj);
@@ -307,6 +330,7 @@ public class ChatActivity extends AppCompatActivity {
             };
         });
     }
+
 
     private void checkPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED)
@@ -432,7 +456,7 @@ public class ChatActivity extends AppCompatActivity {
                     String filePath = uri.toString();
                     String messageTxt = "[voice]";
                     Date date = new Date();
-                    Message message = new Message(messageTxt, senderUid, date.getTime());
+                    Message message = new Message(messageTxt, senderUid, date.getTime(),senderRoom);
                     HashMap<String, Object> lastMsgObj = new HashMap<>();
 
                     lastMsgObj.put("lastMsg", message.getMessage());
@@ -453,7 +477,6 @@ public class ChatActivity extends AppCompatActivity {
                             .child("messages")
                             .push()
                             .setValue(message).addOnSuccessListener(avoid1 -> {
-
                             }));
                 });
             }
@@ -477,7 +500,7 @@ public class ChatActivity extends AppCompatActivity {
                                 String filePath = uri.toString();
                                 String messageTxt = "[photo]";
                                 Date date = new Date();
-                                Message message = new Message(messageTxt, senderUid, date.getTime());
+                                Message message = new Message(messageTxt, senderUid, date.getTime(),senderRoom);
                                 HashMap<String, Object> lastMsgObj = new HashMap<>();
                                 lastMsgObj.put("lastMsg", message.getMessage());
                                 lastMsgObj.put("lastMsgTime", date.getTime());

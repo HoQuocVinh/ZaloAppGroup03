@@ -197,7 +197,7 @@ public class SetupProfileActivity extends AppCompatActivity {
                             public void onSuccess(Uri uri) {
                                 String imageUrl = uri.toString();
                                 String uid = auth.getUid();
-                                String phone = auth.getCurrentUser().getPhoneNumber();
+                                String phone = Objects.requireNonNull(auth.getCurrentUser()).getPhoneNumber();
                                 String name = binding.edtName.getText().toString().trim();
                                 String password = binding.edtPassword1.getText().toString().trim();
                                 User user = new User(uid, name, phone, imageUrl, password);
@@ -205,15 +205,12 @@ public class SetupProfileActivity extends AppCompatActivity {
                                         .child("users")
                                         .child(uid)
                                         .setValue(user)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void unused) {
+                                        .addOnSuccessListener(unused -> {
 //                                                dialog.dismiss();
-                                                binding.progressBar.setVisibility(View.INVISIBLE);
-                                                binding.btnContinue.setVisibility(View.VISIBLE);
-                                                startActivity(new Intent(SetupProfileActivity.this, MainActivity.class));
-                                                finish();
-                                            }
+                                            binding.progressBar.setVisibility(View.INVISIBLE);
+                                            binding.btnContinue.setVisibility(View.VISIBLE);
+                                            startActivity(new Intent(SetupProfileActivity.this, MainActivity.class));
+                                            finish();
                                         });
                             }
                         });

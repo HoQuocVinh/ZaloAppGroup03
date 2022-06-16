@@ -53,6 +53,7 @@ dependencies {
 
     //* Remote message
     implementation 'com.google.firebase:firebase-config'
+    implementation 'com.google.firebase:firebase-firestore:24.1.2'
 
 
     testImplementation 'junit:junit:4.13.2'

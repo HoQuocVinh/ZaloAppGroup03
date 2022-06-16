@@ -96,6 +96,7 @@ public class FragmentUsers extends Fragment {
         String currentId = FirebaseAuth.getInstance().getUid();
         database.getReference().child("presence").child(Objects.requireNonNull(currentId)).setValue("Online");
     }
+
     @Override
     public void onPause() {
         super.onPause();
