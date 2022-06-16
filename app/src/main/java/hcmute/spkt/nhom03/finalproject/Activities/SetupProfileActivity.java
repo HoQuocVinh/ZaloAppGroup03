@@ -14,18 +14,14 @@ import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.util.Objects;
 
@@ -188,33 +184,27 @@ public class SetupProfileActivity extends AppCompatActivity {
         /* Xử lý khi có hình ảnh*/
         if (selectedImage != null) {
             StorageReference reference = storage.getReference().child("Profiles").child(Objects.requireNonNull(auth.getUid()));
-            reference.putFile(selectedImage).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                String imageUrl = uri.toString();
-                                String uid = auth.getUid();
-                                String phone = Objects.requireNonNull(auth.getCurrentUser()).getPhoneNumber();
-                                String name = binding.edtName.getText().toString().trim();
-                                String password = binding.edtPassword1.getText().toString().trim();
-                                User user = new User(uid, name, phone, imageUrl, password);
-                                database.getReference()
-                                        .child("users")
-                                        .child(uid)
-                                        .setValue(user)
-                                        .addOnSuccessListener(unused -> {
+            reference.putFile(selectedImage).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    reference.getDownloadUrl().addOnSuccessListener(uri -> {
+                        String imageUrl = uri.toString();
+                        String uid = auth.getUid();
+                        String phone = Objects.requireNonNull(auth.getCurrentUser()).getPhoneNumber();
+                        String name1 = binding.edtName.getText().toString().trim();
+                        String password1 = binding.edtPassword1.getText().toString().trim();
+                        User user = new User(uid, name1, phone, imageUrl, password1);
+                        database.getReference()
+                                .child("users")
+                                .child(uid)
+                                .setValue(user)
+                                .addOnSuccessListener(unused -> {
 //                                                dialog.dismiss();
-                                            binding.progressBar.setVisibility(View.INVISIBLE);
-                                            binding.btnContinue.setVisibility(View.VISIBLE);
-                                            startActivity(new Intent(SetupProfileActivity.this, MainActivity.class));
-                                            finish();
-                                        });
-                            }
-                        });
-                    }
+                                    binding.progressBar.setVisibility(View.INVISIBLE);
+                                    binding.btnContinue.setVisibility(View.VISIBLE);
+                                    startActivity(new Intent(SetupProfileActivity.this, MainActivity.class));
+                                    finish();
+                                });
+                    });
                 }
             });
         }

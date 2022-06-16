@@ -99,7 +99,6 @@ public class ChatActivity extends AppCompatActivity {
         dialog = new ProgressDialog(this);
         dialog.setMessage("Uploading image...");
         dialog.setCancelable(false);
-
         audioRecord = new AudioRecorder();
 
         binding.edtChat.addTextChangedListener(textWatcher);

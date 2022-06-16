@@ -54,9 +54,9 @@ public class FragmentSetting extends Fragment {
         mapping();
         checkCurrentUser();
         binding.changeImg.setOnClickListener(v -> addImage());
+        binding.btnSave.setOnClickListener(v -> uploadProfileImage());
         return binding.getRoot();
     }
-
 
     private void mapping() {
         auth = FirebaseAuth.getInstance();
@@ -87,16 +87,32 @@ public class FragmentSetting extends Fragment {
         dialog.setMessage("Uploading image...");
         dialog.setCancelable(false);
 
+        dialog.show();
         if (imageUri != null) {
             storageReference = firebaseStorage.getReference().child("Profile").child(user.getUid());
+            storageReference.putFile(imageUri).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    dialog.dismiss();
+                    storageReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                        String imageUrl = uri.toString();
+                        databaseReference = FirebaseDatabase.getInstance().getReference("users");
+                        databaseReference.child(user.getUid())
+                                .child("profileImage")
+                                .setValue(imageUrl)
+                                .addOnSuccessListener(unused -> {
+                                });
+                    });
+                }
+            });
         }
     }
+
     private void checkCurrentUser() {
         if (user != null)
-            getUserProfile(user);
+            getProfileCurrentUser(user);
     }
 
-    private void getUserProfile(FirebaseUser user) {
+    private void getProfileCurrentUser(FirebaseUser user) {
         String phoneProfile = user.getPhoneNumber();
         String uid = user.getUid();
         databaseReference = firebaseDatabase.getReference("users").child(uid);
