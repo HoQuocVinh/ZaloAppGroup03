@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/custom_button_in_register"
-                android:backgroundTint="@color/blue_light"
+                android:backgroundTint="@color/gray_ccc"
                 android:text="Save"
                 android:textColor="@color/white" />
 

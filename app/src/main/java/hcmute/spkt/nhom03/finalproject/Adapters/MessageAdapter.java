@@ -76,7 +76,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
                 viewHolder.binding.voicePlayerView.setVisibility(View.VISIBLE);
                 viewHolder.binding.voicePlayerView.setAudio(message.getVoiceUrl());
             }
-            viewHolder.binding.message.setText(message.getMessage());
+            else viewHolder.binding.message.setText(message.getMessage());
         } else {
             ReceiverViewHolder viewHolder = (ReceiverViewHolder) holder;
             String receiveRoom = message.getIdRoom();
@@ -93,7 +93,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
                 viewHolder.binding.voicePlayerView.setVisibility(View.VISIBLE);
                 viewHolder.binding.voicePlayerView.setAudio(message.getVoiceUrl());
             }
-            viewHolder.binding.message.setText(message.getMessage());
+            else viewHolder.binding.message.setText(message.getMessage());
 //            getImageUser(viewHolder, Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()));
         }
     }
