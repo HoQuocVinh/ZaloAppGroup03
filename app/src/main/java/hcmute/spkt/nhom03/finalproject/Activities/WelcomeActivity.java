@@ -49,9 +49,10 @@ public class WelcomeActivity extends AppCompatActivity {
         //* Thực hiện chuyển từ WelcomeActivity sang PhoneNumberActivity
         startActivity(new Intent(WelcomeActivity.this, PhoneNumberActivity.class));
     }
+
     //* Tạo sự kiện click trực tiếp trong button register --> android:onClick="login"
-   public void login(View view) {
-       //* Thực hiện chuyển từ WelcomeActivity sang LoginActivity
-       startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
+    public void login(View view) {
+        //* Thực hiện chuyển từ WelcomeActivity sang LoginActivity
+        startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
     }
 }

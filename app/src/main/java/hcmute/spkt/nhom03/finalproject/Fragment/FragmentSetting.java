@@ -26,6 +26,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.Objects;
 
+import hcmute.spkt.nhom03.finalproject.Activities.WelcomeActivity;
 import hcmute.spkt.nhom03.finalproject.Models.User;
 import hcmute.spkt.nhom03.finalproject.R;
 import hcmute.spkt.nhom03.finalproject.databinding.FragmentSettingBinding;
@@ -59,7 +60,47 @@ public class FragmentSetting extends Fragment {
         binding.btnSave.setEnabled(false);
         //* Tạo sự kiện click cho btnSave
         binding.btnSave.setOnClickListener(v -> uploadProfileImage());
+        binding.btnLogOut.setOnClickListener(v -> {
+            //* Gọi hàm xóa presence
+            deletePresence();
+            //* Gọi hàm để xóa token
+            deleteToken();
+            //* Sử dụng auth để thực hiện việc signout
+            auth.signOut();
+            //* Gọi hàm signOutUser để chuyển đến Welcome Activity
+            signOutUser();
+        });
         return binding.getRoot();
+    }
+    //* Khởi tạo hàm deletePresence
+    private void deletePresence() {
+        //* Lấy uid của currentUser
+        String uidCurrent = user.getUid();
+        //* sử dụng reference và gán giá trị đường dẫn có nó đến node cần thay đổi
+        DatabaseReference reference = firebaseDatabase.getReference("presence").child(uidCurrent);
+        //* Thực hiện xóa giá trị trong node uidCurrent
+        reference.removeValue();
+    }
+
+    private void deleteToken() {
+        //* Lấy uid của currentUser
+        String uidCurrent = user.getUid();
+        //* sử dụng reference và gán giá trị đường dẫn có nó đến node cần thay đổi
+        DatabaseReference reference = firebaseDatabase.getReference("users").child(uidCurrent).child("token");
+        //* Thực hiện xóa giá trị trong node token
+        reference.removeValue();
+    }
+
+    private void signOutUser() {
+        //* Sử 0dụng intent để chuyển đến WelcomeActivity
+        Intent intent = new Intent(getActivity(), WelcomeActivity.class);
+        //* FLAG_ACTIVITY_NEW_TASK sẽ tạo một task mới
+        //* FLAG_ACTIVITY_CLEAR_TASK sẽ xóa task cũ
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        //* Thực hiện startActivity
+        startActivity(intent);
+        //* finish để không thể quay lại trang hiện tại khi đã logout
+        getActivity().finish();
     }
 
     //* Mapping lại các biến đã được khởi tạo ở phía trên
@@ -70,6 +111,7 @@ public class FragmentSetting extends Fragment {
         firebaseStorage = FirebaseStorage.getInstance();
     }
 
+    //* Khởi tạo hàm addImage
     private void addImage() {
         Intent intent = new Intent();
         //* Sử dụng để người dùng có thể select image từ library
@@ -101,6 +143,7 @@ public class FragmentSetting extends Fragment {
         //* Bật trạng thái click của btnContinue*
         binding.btnSave.setEnabled(true);
     }
+
     //* Tạo hàm setDisplayButtonSave() --> sử dụng để thay đổi màu và xét trạng thái cho button save
     private void setDisableButtonSave() {
         //* Set backgroundTint cho btnSave -> màu gray_ccc được tạo trong color.xml
@@ -149,6 +192,7 @@ public class FragmentSetting extends Fragment {
         }
     }
 
+    //* Khởi tạo hàm checkCurrentUser   --> Kiểm tra user hiện tại có tồn tịa không
     private void checkCurrentUser() {
         //* Kiểm tra current user có tồn tại không
         //* Nếu curent user đã tồn tại
@@ -157,6 +201,7 @@ public class FragmentSetting extends Fragment {
             getProfileCurrentUser(user);
     }
 
+    //* Khởi hàm getProfileCurrentUser --> để nhận thông tin của user hiện tại
     private void getProfileCurrentUser(FirebaseUser user) {
         //* Tạo phoneProfile kiểu string --> để lấy giá trị phone của user current
         String phoneProfile = user.getPhoneNumber();
@@ -186,8 +231,7 @@ public class FragmentSetting extends Fragment {
     }
 
     //* Khởi tọa hàm setDataForCurrentUser --> để gán giá trị vào trong fragmentsetting
-    private void setDataForCurrentUser(String urlImageProfile, String nameProfile, String
-            phoneProfile) {
+    private void setDataForCurrentUser(String urlImageProfile, String nameProfile, String phoneProfile) {
         //* Sử dụng Glide để add image từ đường dẫn vào trong imgAvt được tạo trong fragment_setting.xml
         Glide.with(FragmentSetting.this)
                 .load(urlImageProfile)

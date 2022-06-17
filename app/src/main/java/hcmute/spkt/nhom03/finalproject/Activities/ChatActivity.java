@@ -685,7 +685,8 @@ public class ChatActivity extends AppCompatActivity {
         //* gán giá trị của currentId
         String currentId = FirebaseAuth.getInstance().getUid();
         //* thực hiện set online cho current user hiện tại
-        database.getReference().child("presence").child(Objects.requireNonNull(currentId)).setValue("Online");
+        if (currentId != null)
+            database.getReference().child("presence").child(Objects.requireNonNull(currentId)).setValue("Online");
     }
 
     @Override
@@ -694,8 +695,10 @@ public class ChatActivity extends AppCompatActivity {
         //* Gán giá trị cho currentId
         String currentId = FirebaseAuth.getInstance().getUid();
         //* Thực hiện set offline cho current user hiện tại
-        database.getReference().child("presence").child(Objects.requireNonNull(currentId)).setValue("Offline");
+        if (currentId != null)
+            database.getReference().child("presence").child(Objects.requireNonNull(currentId)).setValue("Offline");
     }
+
     //* Khởi tạo hàm onCreateOptionsMenu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

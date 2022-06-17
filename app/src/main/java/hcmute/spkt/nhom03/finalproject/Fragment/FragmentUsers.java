@@ -21,7 +21,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Objects;
 
 import hcmute.spkt.nhom03.finalproject.Adapters.UsersAdapter;
@@ -61,7 +60,7 @@ public class FragmentUsers extends Fragment {
         //* Load hàm mapping đã được tạo bên dưới vòa
         mapping();
         //* Load hàm token vào
-        token(messaging);
+//        token(messaging);
         //* Thực hiện load user vào myRecyclerView
         loadUser(userCurrent);
     }
@@ -78,20 +77,20 @@ public class FragmentUsers extends Fragment {
     }
 
     //* Khởi tạo hàm token
-    private void token(FirebaseMessaging messaging) {
-        //* Sử dụng messaging để getToken
-        messaging.getToken().addOnSuccessListener(token -> {
-            //* Tạo map kiểu HashMap
-            HashMap<String, Object> map = new HashMap<>();
-            //* put token vào trong biến "token"
-            map.put("token", token);
-            //* Sử dụng database và truy xuất đến đường dẫn đã được cung cấp bến dưới
-            database.getReference()
-                    .child("users") //* Thông qua nút users
-                    .child(Objects.requireNonNull(auth.getUid())) //* Thông qua uid
-                    .updateChildren(map);   //* Tiến hành update cập nhất các giá trị trong map (map kiểu HashMap)
-        });
-    }
+//    private void token(FirebaseMessaging messaging) {
+//        //* Sử dụng messaging để getToken
+//        messaging.getToken().addOnSuccessListener(token -> {
+//            //* Tạo map kiểu HashMap
+//            HashMap<String, Object> map = new HashMap<>();
+//            //* put token vào trong biến "token"
+//            map.put("token", token);
+//            //* Sử dụng database và truy xuất đến đường dẫn đã được cung cấp bến dưới
+//            database.getReference()
+//                    .child("users") //* Thông qua nút users
+//                    .child(Objects.requireNonNull(auth.getUid())) //* Thông qua uid
+//                    .updateChildren(map);   //* Tiến hành update cập nhất các giá trị trong map (map kiểu HashMap)
+//        });
+//    }
 
     //* Load user vào myRecyclerView
     private void loadUser(FirebaseUser userCurrent) {
@@ -111,8 +110,8 @@ public class FragmentUsers extends Fragment {
 //                            if (!Objects.requireNonNull(userCurrent).getUid().equals(auth.getUid()))
                             //* Nếu tìm thấy một uid mà bằng với currentId thì bỏ qua không load vào myRecyclerView
                             if (!Objects.requireNonNull(user).getUid().equals(auth.getUid()))
-                                //* Add model user vào trong ArrayList
-                                users.add(user);
+                            //* Add model user vào trong ArrayList
+                            users.add(user);
                         }
                         //* Sử dụng userAdapter để cập nhật lại sự thay đổi
                         usersAdapter.notifyDataSetChanged();
@@ -132,7 +131,8 @@ public class FragmentUsers extends Fragment {
         //* Tìm gán giá trị của currentId
         String currentId = auth.getUid();
         //* Thực hiện set giá trị cho node presence với child của nó là currentId và giá trị của currentId là "Online"
-        database.getReference().child("presence").child(Objects.requireNonNull(currentId)).setValue("Online");
+        if (currentId != null)
+            database.getReference().child("presence").child(Objects.requireNonNull(currentId)).setValue("Online");
     }
 
     @Override
@@ -141,6 +141,7 @@ public class FragmentUsers extends Fragment {
         //* Tìm gán giá trị của currentId
         String currentId = auth.getUid();
         //* Thực hiện set giá trị cho node presence với child của nó là currentId và giá trị của currentId là "Offline"
-        database.getReference().child("presence").child(Objects.requireNonNull(currentId)).setValue("Offline");
+        if (currentId != null)
+            database.getReference().child("presence").child(Objects.requireNonNull(currentId)).setValue("Offline");
     }
 }
