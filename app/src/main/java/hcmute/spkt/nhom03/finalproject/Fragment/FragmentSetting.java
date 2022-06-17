@@ -122,7 +122,7 @@ public class FragmentSetting extends Fragment {
         //* Nêu imageUri != null
         if (imageUri != null) {
             //* Gán giá đường dẫn cho storageReference
-            storageReference = firebaseStorage.getReference().child("Profile").child(user.getUid());
+            storageReference = firebaseStorage.getReference().child("Profiles").child(user.getUid());
             //* Thực hiện put hình ảnh lên firebase
             storageReference.putFile(imageUri).addOnCompleteListener(task -> {
                 //* Nếu việc upload thành công

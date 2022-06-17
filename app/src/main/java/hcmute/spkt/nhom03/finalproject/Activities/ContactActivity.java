@@ -25,14 +25,14 @@ import hcmute.spkt.nhom03.finalproject.Models.User;
 import hcmute.spkt.nhom03.finalproject.databinding.ActivityContactBinding;
 
 public class ContactActivity extends AppCompatActivity {
-    ActivityContactBinding binding;
-    Contact contact;
-    ContactAdapter contactAdapter;
-    ArrayList<Contact> contacts;
-    FirebaseDatabase database;
-    DatabaseReference reference;
-    UsersAdapter usersAdapter;
-    ArrayList<User> users;
+    ActivityContactBinding binding;     //* Khởi tạo binding
+    Contact contact;    //* Khởi tạo model Contact --> dùng để lưu trữ contact của điện thaoị
+    ContactAdapter contactAdapter;  //* Khởi tạo contactAdapter --> dùng để cập nhật lịa các sự thay đổi
+    ArrayList<Contact> contacts;    //* Khởi taoị contacts kiểu arrayList --> dùng để chứa tất cả các dữ liệu đã dược lưu vào model contact
+    FirebaseDatabase database;  //* Khởi tạo database --> dùng để truy xuất đến đường dẫn trên firebase
+    DatabaseReference reference;    //* Khởi tạo reference
+    UsersAdapter usersAdapter;  //* Khỏi tạo userAdapter --> dùng để cập nhật lại các sự thay đổi trong model User
+    ArrayList<User> users;  //* Khở tạo users kiêu Array list đùng để chứa dữ liệu được lưu trong model User
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -32,20 +32,20 @@ import hcmute.spkt.nhom03.finalproject.Models.User;
 import hcmute.spkt.nhom03.finalproject.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
-    ActivityLoginBinding binding;
-    ArrayList<User> users;
-    FirebaseDatabase database;
-    FirebaseAuth auth;
-    DatabaseReference reference;
-    UsersAdapter usersAdapter;
-
+    ActivityLoginBinding binding;       //* Khởi tạo binding cho ActivityLogin
+    ArrayList<User> users;  //* Khởi tạo uses kiểu ArrayList dùng để lưu trữ dữ liệu có trong model User
+    FirebaseDatabase database;  //* Khởi tạo database --> dùng để truy xuất đến đường dẫn trên firebase
+    FirebaseAuth auth;      //* Khởi tạo auth
+    DatabaseReference reference;    //* Khởi tạo reference
+    UsersAdapter usersAdapter;  //* Khởi tạo userAdapter dùng để cập nhật lại sự thay đổi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        //* setContentView
         setContentView(binding.getRoot());
-        mapping();
+        mapping();  //* Thực hiện mapping lại các biến đã được khởi taoị cục bộ
         binding.edtPhone.requestFocus(); /*Focus vào edtPhone*/
         showKeyboard(); /*Show bàng phím lên*/
         changeColorActionBar(); /*Thực hiện thay đổi màu của action bar*/
@@ -54,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         binding.edtPassword.addTextChangedListener(textWatcher);    /*Add sự kiện nghe khi thay đổi văn bản cho edtPhone*/
     }
 
+    //* Khưởi tạo hàm mapping
     private void mapping() {
         database = FirebaseDatabase.getInstance();
         users = new ArrayList<>();

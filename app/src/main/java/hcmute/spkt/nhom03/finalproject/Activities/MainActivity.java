@@ -78,18 +78,26 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        //* get đến item có id nav_menu
         getMenuInflater().inflate(R.menu.nav_menu, menu);
+        //* Thực hiện design search view
         designSearchView(menu);
+        //* Trả về onCreateOptionsMenu
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        //* Tạo biến id để nhận giá trị item.getItemId()
         int id = item.getItemId();
+        //* nếu id == R.id.nav_add_friend
         if(id == R.id.nav_add_friend){
+            //* StartActivty ContactActivity
             startActivity(new Intent(MainActivity.this, ContactActivity.class));
+            //* Trả về giá trị true
             return true;
         }
+        //* Trả lại onOptionsItemSelected(item)
         return super.onOptionsItemSelected(item);
     }
 
@@ -137,20 +145,5 @@ public class MainActivity extends AppCompatActivity {
         /*Thay đổi màu của actionbar vớ mã màu #0091FF*/
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#0091FF"));
         Objects.requireNonNull(actionBar).setBackgroundDrawable(colorDrawable);
-//        actionBar.setDisplayShowTitleEnabled(false);
     }
-
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        String currentId = FirebaseAuth.getInstance().getUid();
-//        database.getReference().child("presence").child(Objects.requireNonNull(currentId)).setValue("Online");
-//    }
-
-//    @Override
-//    protected void onStop() {
-//        String currentId = FirebaseAuth.getInstance().getUid();
-//        database.getReference().child("presence").child(currentId).setValue("Offline");
-//        super.onStop();
-//    }
 }

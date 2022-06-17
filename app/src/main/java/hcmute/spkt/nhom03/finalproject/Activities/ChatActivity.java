@@ -71,7 +71,7 @@ public class ChatActivity extends AppCompatActivity {
     ProgressDialog dialog;  //* Khởi taoị dialog
     String senderUid;   //* Khởi tạo senderUdi
 
-    String name, token, profile, uid;   //* Khởi tạo name, token, profile, udi
+    String name, token, profile, uid, nameCurrentUser;  //* Khởi tạo name, token, profile, udi
 //    String mFileName = null;    //* Khởi tạo mFileName
 
     private StorageReference mStorage;  //* Khởi tạo mStarage
@@ -110,6 +110,7 @@ public class ChatActivity extends AppCompatActivity {
         //* Show layout để thu record audio
         showLayoutRecordBelow();
         //* Tạo các biến kiểu String để nhận các giá trị được gửi từ UsersAdapter
+        nameCurrentUser = getIntent().getStringExtra("cUserName");
         name = getIntent().getStringExtra("name");  //* Nhận giá trị và gán vào name
         profile = getIntent().getStringExtra("image");  //* Nhận giá trị và gán vào image
         uid = getIntent().getStringExtra("uid");    //* Nhận giá trị và gán vào uid
@@ -367,7 +368,7 @@ public class ChatActivity extends AppCompatActivity {
                             .child(randomKey)   //* get đến randoomKey
                             .setValue(message)  //* set giá trị message vào firebase với đường dẫn theo tứ tự các child
                             .addOnSuccessListener(avoid1 -> {
-                                sendNotification(name, message.getMessage(), token); //* sent thông báo khi có tin nhắn đến
+                                sendNotification(nameCurrentUser, message.getMessage(), token); //* sent thông báo khi có tin nhắn đến
                             }));
         });
         //* Lắng nghe sự kiện click trên imgPhoto
