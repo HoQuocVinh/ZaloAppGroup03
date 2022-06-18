@@ -73,7 +73,7 @@ public class ContactActivity extends AppCompatActivity {
         //* Khở tạo uri
         Uri uri = ContactsContract.Contacts.CONTENT_URI;
         //* Sắp xếp các name theo thứ tự tăng dần của bảng mã ASC
-        String sort = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + "ASC";
+        String sort = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC";
         //* Khởi tạo cursor
         @SuppressLint("Recycle") Cursor cursor = getContentResolver()
                 .query(uri, null, null, null, sort);

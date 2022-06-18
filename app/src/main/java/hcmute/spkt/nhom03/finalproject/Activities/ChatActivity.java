@@ -601,7 +601,9 @@ public class ChatActivity extends AppCompatActivity {
                                     .child(receiverRoom)    //* get đến receiverRoom
                                     .child("messages")  //* get đến message
                                     .push() //* push()
-                                    .setValue(message).addOnSuccessListener(avoid1 -> {
+                                    .setValue(message)
+                                    .addOnSuccessListener(avoid1 -> {
+                                        sendNotification(nameCurrentUser, "[voice]", token); //* sent thông báo khi có tin nhắn đến
                                     }));
                 });
             }
@@ -670,7 +672,7 @@ public class ChatActivity extends AppCompatActivity {
                                                 .push() //* push(0
                                                 .setValue(message) //* setValue với giá trị message được tạo phía trên
                                                 .addOnSuccessListener(avoid1 -> {
-
+                                                    sendNotification(nameCurrentUser, "[image]", token); //* sent thông báo khi có tin nhắn đến
                                                 }));
                             });
                     });
