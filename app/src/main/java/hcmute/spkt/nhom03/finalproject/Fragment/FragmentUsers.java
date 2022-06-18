@@ -21,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 import hcmute.spkt.nhom03.finalproject.Adapters.UsersAdapter;
@@ -60,7 +61,7 @@ public class FragmentUsers extends Fragment {
         //* Load hàm mapping đã được tạo bên dưới vòa
         mapping();
         //* Load hàm token vào
-//        token(messaging);
+        token(messaging);
         //* Thực hiện load user vào myRecyclerView
         loadUser(userCurrent);
     }
@@ -77,20 +78,20 @@ public class FragmentUsers extends Fragment {
     }
 
     //* Khởi tạo hàm token
-//    private void token(FirebaseMessaging messaging) {
-//        //* Sử dụng messaging để getToken
-//        messaging.getToken().addOnSuccessListener(token -> {
-//            //* Tạo map kiểu HashMap
-//            HashMap<String, Object> map = new HashMap<>();
-//            //* put token vào trong biến "token"
-//            map.put("token", token);
-//            //* Sử dụng database và truy xuất đến đường dẫn đã được cung cấp bến dưới
-//            database.getReference()
-//                    .child("users") //* Thông qua nút users
-//                    .child(Objects.requireNonNull(auth.getUid())) //* Thông qua uid
-//                    .updateChildren(map);   //* Tiến hành update cập nhất các giá trị trong map (map kiểu HashMap)
-//        });
-//    }
+    private void token(FirebaseMessaging messaging) {
+        //* Sử dụng messaging để getToken
+        messaging.getToken().addOnSuccessListener(token -> {
+            //* Tạo map kiểu HashMap
+            HashMap<String, Object> map = new HashMap<>();
+            //* put token vào trong biến "token"
+            map.put("token", token);
+            //* Sử dụng database và truy xuất đến đường dẫn đã được cung cấp bến dưới
+            database.getReference()
+                    .child("users") //* Thông qua nút users
+                    .child(Objects.requireNonNull(auth.getUid())) //* Thông qua uid
+                    .updateChildren(map);   //* Tiến hành update cập nhất các giá trị trong map (map kiểu HashMap)
+        });
+    }
 
     //* Load user vào myRecyclerView
     private void loadUser(FirebaseUser userCurrent) {

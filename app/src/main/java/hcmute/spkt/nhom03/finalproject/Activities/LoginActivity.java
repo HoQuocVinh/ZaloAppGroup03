@@ -32,7 +32,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -223,7 +222,7 @@ public class LoginActivity extends AppCompatActivity {
                     String passwordAuth = user.getPassword();   //* Tạo một biến passwordAuth kiểu string để nhận giá trị password
                     if (phone.equals(phoneAuth) && password.equals(passwordAuth)) {
                         String uid = user.getUid();
-                        token(messaging, uid);
+//                        token(messaging, uid);
                         isHasUser = true;
                         break;
                     }
@@ -250,21 +249,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-
-    private void token(FirebaseMessaging messaging, String uid) {
-        //* Sử dụng messaging để getToken
-        messaging.getToken().addOnSuccessListener(token -> {
-            //* Tạo map kiểu HashMap
-            HashMap<String, Object> map = new HashMap<>();
-            //* put token vào trong biến "token"
-            map.put("token", token);
-            //* Sử dụng database và truy xuất đến đường dẫn đã được cung cấp bến dưới
-            database.getReference()
-                    .child("users") //* Thông qua nút users
-                    .child(uid) //* Thông qua uid
-                    .updateChildren(map);   //* Tiến hành update cập nhất các giá trị trong map (map kiểu HashMap)
-        });
-    }
 
     /*Tạo hàm show hoặc hide password*/
     @SuppressLint("SetTextI18n")
